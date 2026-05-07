@@ -44,3 +44,12 @@ print(message)
 st2 = "My name is {a}, I live in {b}, I study in {c}"
 message = st2.format(a = "Subin Thapa",b = "kalanki",c = "kritipur")
 print(message)
+num1 = 50 
+num2 = 20 
+result = str(num1) + str(num2)
+print(result)
+print(type(result))
+### representation of the string 
+name = "Subin Thapa" 
+print(repr(name))
+print(type(name))
