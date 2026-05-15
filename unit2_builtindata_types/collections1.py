@@ -57,3 +57,9 @@ print(student["country"])
 #### updating values in the python :: 
 student["age"] = 20 
 print(student)
+a = 50 
+b = 501
+print(id(a) == id(b))
+a = 1000 
+b = 1000 
+print(id(a) == (id))
