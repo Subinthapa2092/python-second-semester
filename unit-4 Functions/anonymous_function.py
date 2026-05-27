@@ -14,3 +14,5 @@ number = int(input("Enter the number "))
 def get_lambda_function(n):
     return list(filter(lambda x: not x % 5,range(n)))
 print(get_lambda_function(number))
+## Checking the built in  function's or by default funtion
+print(dir(__builtins__))
