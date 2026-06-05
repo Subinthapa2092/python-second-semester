@@ -43,15 +43,25 @@
 # gen = fibonacci()
 # for i in range(10):
 #     print(next(gen))
-def fibonacci(n):
-    a,b=0,1
-    while a<=n:
-        yield a 
-        a,b = b, a+b
-n=int(input("enter a number:"))
-result = fibonacci(n)
-print(next(result))
-print(next(result))
+# def fibonacci(n):
+#     a,b=0,1
+#     while a<=n:
+#         yield a 
+#         a,b = b, a+b
+# n=int(input("enter a number:"))
+# result = fibonacci(n)
+# # print(next(result))
+# print(next(result))
+# print(next(result))
+# print(next(result))
+# print(next(result))
+# for i in range(n):
+    # print(f"{1+1/(next(result))}")
+def harmonic(n):
+    sum = 0 
+    for i in range(1,n+1):
+        yield sum +1/i 
+result = harmonic(10)
 print(next(result))
 print(next(result))
 print(next(result))
