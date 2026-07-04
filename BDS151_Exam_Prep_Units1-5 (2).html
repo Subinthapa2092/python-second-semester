@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BDS151 Python Exam Prep (Units 1–5)</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<style>
+  :root{
+    --bg:#12161f;
+    --bg-panel:#171c27;
+    --bg-card:#1c2230;
+    --ink:#e7e5df;
+    --ink-dim:#9aa3b5;
+    --rule:#2a3140;
+    --amber:#e8a33d;
+    --teal:#4fd1c5;
+    --rose:#e2725b;
+    --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans: 'IBM Plex Sans', -apple-system, Segoe UI, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans);
+    line-height:1.55;
+  }
+  @font-face{}
+  /* layout */
+  .shell{display:flex; min-height:100vh;}
+  .sidebar{
+    width:280px; flex-shrink:0; background:var(--bg-panel);
+    border-right:1px solid var(--rule); position:sticky; top:0; height:100vh;
+    overflow-y:auto; padding:22px 18px 40px;
+  }
+  .brand{font-family:var(--mono); font-size:13px; letter-spacing:.08em; color:var(--amber); text-transform:uppercase;}
+  .brand h1{font-family:var(--sans); font-size:20px; color:var(--ink); margin:6px 0 2px; letter-spacing:-0.01em;}
+  .brand p{margin:0; font-size:12.5px; color:var(--ink-dim);}
+
+  .coverage{margin:20px 0 22px; padding:14px; background:var(--bg-card); border:1px solid var(--rule); border-radius:10px;}
+  .coverage-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;}
+  .coverage-top span:first-child{font-size:12px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.06em;}
+  #coveragePct{font-family:var(--mono); color:var(--amber); font-size:18px; font-weight:600;}
+  .bar{height:8px; border-radius:5px; background:#0e1219; overflow:hidden; border:1px solid var(--rule);}
+  .bar-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--teal),var(--amber)); transition:width .35s ease;}
+  .coverage small{display:block; margin-top:8px; color:var(--ink-dim); font-size:11px;}
+
+  .search{
+    width:100%; padding:9px 12px; border-radius:8px; border:1px solid var(--rule);
+    background:#0e1219; color:var(--ink); font-family:var(--sans); font-size:13.5px; margin-bottom:18px;
+  }
+  .search:focus{outline:none; border-color:var(--teal);}
+
+  nav.toc a{
+    display:flex; justify-content:space-between; gap:8px;
+    padding:8px 10px; margin-bottom:3px; border-radius:7px; color:var(--ink-dim);
+    text-decoration:none; font-size:13.5px; transition:background .15s, color .15s;
+  }
+  nav.toc a:hover{background:#20273a; color:var(--ink);}
+  nav.toc a.active{background:#20273a; color:var(--teal);}
+  nav.toc .u-count{font-family:var(--mono); font-size:11px; color:var(--ink-dim);}
+
+  .main{flex:1; padding:40px 48px 120px; max-width:980px;}
+  header.hero{margin-bottom:36px; border-bottom:1px solid var(--rule); padding-bottom:26px;}
+  header.hero .eyebrow{font-family:var(--mono); color:var(--rose); font-size:12px; letter-spacing:.1em; text-transform:uppercase;}
+  header.hero h1{font-size:32px; margin:8px 0 10px; letter-spacing:-0.02em;}
+  header.hero p{color:var(--ink-dim); max-width:640px; margin:0 0 14px;}
+  .note-box{
+    background:#20180f; border:1px solid #4a3620; color:#f0c98a; border-radius:9px;
+    padding:12px 14px; font-size:13.5px; margin-top:14px;
+  }
+  .note-box b{color:var(--amber);}
+
+  .pattern-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:20px;}
+  .pattern-card{background:var(--bg-card); border:1px solid var(--rule); border-radius:10px; padding:16px 18px;}
+  .pattern-card h3{margin:0 0 6px; font-size:14px; color:var(--teal); font-family:var(--mono);}
+  .pattern-card p{margin:0; font-size:13px; color:var(--ink-dim);}
+
+  section.unit{margin-bottom:54px; scroll-margin-top:20px;}
+  .unit-head{display:flex; align-items:baseline; gap:14px; margin-bottom:6px;}
+  .unit-tag{font-family:var(--mono); color:var(--amber); font-size:13px;}
+  .unit-head h2{font-size:24px; margin:0; letter-spacing:-0.01em;}
+  .unit-meta{color:var(--ink-dim); font-size:13px; margin:0 0 22px;}
+
+  .qcard{
+    background:var(--bg-card); border:1px solid var(--rule); border-radius:12px;
+    margin-bottom:14px; overflow:hidden; scroll-margin-top:20px;
+  }
+  .qcard-head{
+    display:flex; align-items:flex-start; gap:12px; padding:15px 18px; cursor:pointer;
+    user-select:none;
+  }
+  .qcard input[type=checkbox]{
+    margin-top:3px; width:17px; height:17px; accent-color:var(--teal); cursor:pointer; flex-shrink:0;
+  }
+  .qcard-head .qtext{flex:1; font-size:14.5px; color:var(--ink); font-weight:500;}
+  .qcard .rank{
+    flex-shrink:0; font-family:var(--mono); font-size:10px; padding:2px 8px; border-radius:99px;
+    letter-spacing:.04em; text-transform:uppercase; height:fit-content; margin-top:2px;
+  }
+  .rank.high{background:#2a1c14; color:var(--amber); border:1px solid #4a3620;}
+  .rank.med{background:#132726; color:var(--teal); border:1px solid #1f4340;}
+  .rank.low{background:#1c1f2a; color:var(--ink-dim); border:1px solid var(--rule);}
+  .caret{flex-shrink:0; color:var(--ink-dim); transition:transform .2s ease; margin-top:2px;}
+  .qcard.open .caret{transform:rotate(90deg);}
+  .qcard-body{
+    max-height:0; overflow:hidden; transition:max-height .25s ease;
+    padding:0 18px; border-top:1px solid transparent;
+  }
+  .qcard.open .qcard-body{max-height:2400px; border-top-color:var(--rule); padding:14px 18px 18px;}
+  .qcard-body p{margin:0 0 10px; font-size:13.8px; color:#cfd3dd;}
+  .qcard-body ul{margin:0 0 10px; padding-left:20px; font-size:13.8px; color:#cfd3dd;}
+  .qcard-body li{margin-bottom:4px;}
+  .qcard-body pre{
+    background:#0d1117; border:1px solid var(--rule); border-radius:8px; padding:12px 14px;
+    overflow-x:auto; font-size:12.8px; margin:8px 0 4px;
+  }
+  .qcard-body code{font-family:var(--mono);}
+  .qcard-body table{width:100%; border-collapse:collapse; font-size:13px; margin:8px 0;}
+  .qcard-body th,.qcard-body td{border:1px solid var(--rule); padding:6px 10px; text-align:left; color:#cfd3dd;}
+  .qcard-body th{color:var(--teal); font-family:var(--mono); font-size:11.5px; text-transform:uppercase;}
+
+  .hidden{display:none !important;}
+
+  .unit-toolbar{display:flex; gap:10px; margin-bottom:16px;}
+  .unit-toolbar button{
+    font-family:var(--sans); font-size:12.5px; padding:6px 12px; border-radius:7px;
+    background:#20273a; color:var(--ink-dim); border:1px solid var(--rule); cursor:pointer;
+  }
+  .unit-toolbar button:hover{color:var(--ink); border-color:var(--teal);}
+
+  footer{border-top:1px solid var(--rule); padding-top:22px; margin-top:40px; color:var(--ink-dim); font-size:12.5px;}
+
+  ::-webkit-scrollbar{width:9px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:#2a3140; border-radius:5px;}
+
+  /* ---- Terminal code runner ---- */
+  .code-runner{border:1px solid var(--rule); border-radius:8px; overflow:hidden; margin:8px 0 4px;}
+  .code-runner pre{margin:0; border:none; border-radius:0;}
+  .code-runner-bar{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background:#11151d; padding:6px 10px; border-bottom:1px solid var(--rule);
+  }
+  .code-runner-bar span{font-family:var(--mono); font-size:11px; color:var(--ink-dim); letter-spacing:.04em;}
+  .code-runner-btns{display:flex; gap:8px; flex-shrink:0;}
+  .run-btn{
+    font-family:var(--mono); font-size:11.5px; color:#0d1117; background:var(--teal);
+    border:none; border-radius:5px; padding:5px 11px; cursor:pointer; font-weight:600;
+    display:flex; align-items:center; gap:4px;
+  }
+  .run-btn:hover{background:#6fe0d4;}
+  .run-btn:disabled{background:#3a4150; color:var(--ink-dim); cursor:wait;}
+  .reset-btn{
+    font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); background:#20273a;
+    border:1px solid var(--rule); border-radius:5px; padding:5px 11px; cursor:pointer;
+  }
+  .reset-btn:hover{color:var(--ink); border-color:var(--teal);}
+  .code-editor{
+    display:block; width:100%; background:#0d1117; color:#d4d4d8; font-family:var(--mono);
+    font-size:12.8px; line-height:1.55; border:none; outline:none; padding:12px 14px;
+    resize:vertical; tab-size:4; white-space:pre;
+  }
+  .code-editor:focus{background:#0f141c; box-shadow:inset 0 0 0 1px var(--teal);}
+  .term-output{
+    background:#080a0f; color:#8de08a; font-family:var(--mono); font-size:12.5px;
+    padding:12px 14px; white-space:pre-wrap; word-break:break-word; border-top:1px solid var(--rule);
+    max-height:280px; overflow-y:auto;
+  }
+  .term-output.hidden{display:none;}
+  .term-output::before{content:"$ output"; display:block; color:#4a5568; margin-bottom:6px; font-size:10.5px; letter-spacing:.06em;}
+
+  /* ---- Mobile topbar / off-canvas sidebar ---- */
+  .mobile-topbar{display:none;}
+  .sidebar-overlay{display:none;}
+
+  @media(max-width:860px){
+    .mobile-topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      position:sticky; top:0; z-index:70; background:var(--bg-panel);
+      border-bottom:1px solid var(--rule); padding:12px 16px;
+    }
+    .mobile-topbar .mt-title{font-family:var(--mono); font-size:13px; color:var(--amber); letter-spacing:.04em;}
+    .mobile-topbar button{
+      background:#20273a; border:1px solid var(--rule); color:var(--ink);
+      font-size:18px; line-height:1; padding:7px 11px; border-radius:7px; cursor:pointer;
+    }
+    .shell{flex-direction:column;}
+    .sidebar{
+      position:fixed; top:0; left:0; height:100vh; width:84%; max-width:320px;
+      transform:translateX(-105%); transition:transform .25s ease; z-index:80;
+      box-shadow:6px 0 30px rgba(0,0,0,.5);
+    }
+    .sidebar.open{transform:translateX(0);}
+    .sidebar-overlay{
+      display:block; position:fixed; inset:0; background:rgba(5,7,11,.6);
+      opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:75;
+    }
+    .sidebar-overlay.show{opacity:1; pointer-events:auto;}
+    .main{padding:24px 16px 90px;}
+    header.hero h1{font-size:25px;}
+    .pattern-grid{grid-template-columns:1fr;}
+    .qcard-head{flex-wrap:wrap; padding:13px 14px;}
+    .qcard-head .qtext{order:2; width:100%; margin-top:2px;}
+    .qcard .rank{order:3;}
+    .qcard input[type=checkbox]{order:1;}
+    .caret{order:4; margin-left:auto;}
+    .qcard-body{padding-left:14px; padding-right:14px;}
+    .qcard-body table{display:block; overflow-x:auto; white-space:nowrap;}
+    .unit-head h2{font-size:20px;}
+    .unit-toolbar{flex-wrap:wrap;}
+    .qcard-body pre, .term-output{font-size:12px;}
+  }
+
+  @media(max-width:420px){
+    .main{padding:18px 12px 90px;}
+    header.hero h1{font-size:21px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="mobile-topbar">
+  <span class="mt-title">BDS151 · Exam Prep</span>
+  <button id="menuToggle" aria-label="Open menu">☰</button>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="shell">
+
+
+  <aside class="sidebar">
+    <div class="brand">BDS151 · Python Programming</div>
+    <h1>Exam Prep Console</h1>
+    <p>Units 1–5 only · Tribhuvan University</p>
+
+    <div class="coverage">
+      <div class="coverage-top">
+        <span>Coverage</span>
+        <span id="coveragePct">0%</span>
+      </div>
+      <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+      <small id="coverageCount">0 of 0 questions reviewed</small>
+    </div>
+
+    <input class="search" id="searchBox" type="text" placeholder="Search a topic or keyword…">
+
+    <nav class="toc" id="tocNav">
+      <a href="#overview">Overview</a>
+      <a href="#unit1">Unit 1 · Introduction <span class="u-count">16+1</span></a>
+      <a href="#unit2">Unit 2 · Data Types <span class="u-count">25+2</span></a>
+      <a href="#unit3">Unit 3 · Conditionals &amp; Loops <span class="u-count">12+4</span></a>
+      <a href="#unit4">Unit 4 · Functions <span class="u-count">10</span></a>
+      <a href="#unit5">Unit 5 · Comprehensions &amp; Generators <span class="u-count">13</span></a>
+    </nav>
+  </aside>
+
+  <main class="main">
+
+    <header class="hero" id="overview">
+      <div class="eyebrow">First Assessment · 2082</div>
+      <h1>Everything for Units 1–5, in one place</h1>
+      <p>Every assignment question answered concisely, tagged by how often similar questions repeated across your three past papers, with runnable code for every "write a program" question. Tick a question off once you can answer it cold — the coverage meter tracks you.</p>
+      <div class="note-box">
+        <b>Scope note:</b> your past papers also covered OOP, file handling, NumPy, pandas, and matplotlib — but this exam is restricted to <b>Units 1–5 only</b> (Introduction → Comprehensions/Generators), so none of that appears here. Don't spend time on it.
+      </div>
+
+      <div class="pattern-grid">
+        <div class="pattern-card">
+          <h3>Group A — 5 × 3 = 15</h3>
+          <p>Short definition / concept questions. Fast marks if you know the exact terminology. "What is Python and why preferred" has appeared in every past paper.</p>
+        </div>
+        <div class="pattern-card">
+          <h3>Group B — 5 × 6 = 30</h3>
+          <p>Theory + a program, often with an "OR" choice. List/Set/Tuple, Dictionary, loops+flowchart, and comprehensions are the recurring picks.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ UNIT 1 ============ -->
+    <section class="unit" id="unit1">
+      <div class="unit-head"><span class="unit-tag">01</span><h2>Introduction</h2></div>
+      <p class="unit-meta">3 hrs · Python basics, IDEs, indentation, variables, operators</p>
+      <div class="unit-toolbar">
+        <button onclick="expandUnit('unit1',true)">Expand all</button>
+        <button onclick="expandUnit('unit1',false)">Collapse all</button>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">1–3. History of Python, its advantages, and companies using it</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>History:</b> Created by Guido van Rossum, begun in December 1989 at CWI, Netherlands, as a successor to the ABC language. First released publicly in 1991 (v0.9.0). Named after the comedy show <i>Monty Python's Flying Circus</i>, not the snake. Major milestones: Python 2.0 (2000), Python 3.0 (2008, not backward compatible), Python 2 retired in 2020.</p>
+          <p><b>Advantages (pick any two for 3-mark answer):</b></p>
+          <ul>
+            <li>Simple, readable syntax close to English — faster to learn and write</li>
+            <li>Huge standard library + third-party ecosystem (pip)</li>
+            <li>Cross-platform — same code runs on Windows/Linux/Mac</li>
+            <li>Dynamically typed — no need to declare variable types</li>
+            <li>Supports multiple paradigms: procedural, object-oriented, functional</li>
+            <li>Massive community and use in AI/ML, web, automation, data science</li>
+          </ul>
+          <p><b>Companies:</b> Google, Instagram, Netflix, Spotify, Dropbox, NASA, YouTube, Reddit, Quora.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">4. Identifier vs keyword vs variable</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Identifier:</b> the name given to a variable, function, class, or module.</p>
+          <p><b>Rules for identifiers:</b></p>
+          <ul>
+            <li>Must start with a letter (a–z, A–Z) or underscore <code>_</code>, never a digit</li>
+            <li>Can contain letters, digits, underscores only — no spaces or special characters</li>
+            <li>Case-sensitive: <code>age</code> and <code>Age</code> are different</li>
+            <li>Cannot be a reserved keyword (e.g. <code>if</code>, <code>class</code>, <code>for</code>)</li>
+          </ul>
+          <p><b>Identifier vs keyword:</b> keywords are reserved words with fixed meaning built into the language and cannot be reassigned; identifiers are names you choose freely (as long as they follow the rules above).</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">5. IDE and common Python IDEs</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>IDE (Integrated Development Environment):</b> a single application bundling a code editor, interpreter/compiler, and debugger, so you can write, run, and fix code without switching tools.</p>
+          <p><b>Common Python IDEs:</b> IDLE (bundled with Python), PyCharm, VS Code, Jupyter Notebook, Spyder, Thonny.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">6–7. Running a .py file from console + installing third-party libraries</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Run from console:</b></p>
+          <pre><code class="language-bash">cd path/to/folder
+python filename.py
+# or, if python3 is the alias on your system
+python3 filename.py</code></pre>
+          <p><b>Installing third-party libraries</b> — use <code>pip</code>, Python's package manager:</p>
+          <pre><code class="language-bash">pip install numpy
+pip install pandas matplotlib     # multiple at once
+pip install -r requirements.txt   # from a list of packages</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">8. Importance of indentation</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Python uses <b>indentation instead of curly braces</b> to define blocks of code (loops, functions, conditionals, classes). Consistent indentation is not a style choice — it is syntax. Wrong or mismatched indentation raises an <code>IndentationError</code>.</p>
+          <pre><code class="language-python">if 5 > 2:
+    print("5 is greater")   # this line belongs to the if-block
+    print("still inside")
+print("outside the if-block")</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">9. Variables, loosely typed, identifier vs variable</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Variable:</b> a named location in memory used to store a value that can change during program execution.</p>
+          <p><b>Why "loosely typed" (dynamically typed):</b> you don't declare a variable's type in advance, and the same variable can hold different types over its lifetime — the type is decided at runtime based on the assigned value.</p>
+          <pre><code class="language-python">x = 5        # x is int
+x = "hello"  # now x is str — no error</code></pre>
+          <p><b>Identifier vs variable:</b> an identifier is just the name (e.g. <code>x</code>); a variable is that name bound to an actual value in memory. Every variable has an identifier, but "identifier" is the broader term (also used for function/class names).</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">10–14. Operators — arithmetic, assignment, logical, identity vs membership, bitwise</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Operators</b> are symbols that perform operations on values/variables.</p>
+          <table>
+            <tr><th>Category</th><th>Operators</th><th>Example</th></tr>
+            <tr><td>Arithmetic</td><td>+ - * / // % **</td><td><code>7 // 2 → 3</code></td></tr>
+            <tr><td>Assignment</td><td>= += -= *= /= //= %= **=</td><td><code>x += 3</code></td></tr>
+            <tr><td>Relational</td><td>== != &gt; &lt; &gt;= &lt;=</td><td><code>5 &gt; 3 → True</code></td></tr>
+            <tr><td>Logical</td><td>and, or, not</td><td><code>True and False → False</code></td></tr>
+            <tr><td>Identity</td><td>is, is not</td><td>checks same object in memory</td></tr>
+            <tr><td>Membership</td><td>in, not in</td><td>checks value exists in a sequence</td></tr>
+            <tr><td>Bitwise</td><td>& | ^ ~ &lt;&lt; &gt;&gt;</td><td><code>5 &lt;&lt; 1 → 10</code></td></tr>
+          </table>
+          <p><b>Identity vs membership:</b> identity operators check whether two variables refer to the exact same object in memory (<code>a is b</code>); membership operators check whether a value exists inside a sequence/collection (<code>3 in [1,2,3]</code>).</p>
+          <p><b>Bitwise shift:</b> left shift (<code>&lt;&lt;</code>) shifts bits left and fills with 0s, which multiplies the number by 2 per shift; right shift (<code>&gt;&gt;</code>) shifts bits right, dividing by 2 per shift (discarding remainder).</p>
+          <pre><code class="language-python">print(5 << 1)   # 10  (5*2)
+print(5 >> 1)   # 2   (5//2)</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">15. Program — Body Mass Index (BMI)</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <pre><code class="language-python">weight = float(input("Enter weight in kg: "))
+height = float(input("Enter height in meters: "))
+
+bmi = weight / (height * height)
+print(f"Your BMI is {bmi:.2f}")
+
+if bmi < 18.5:
+    print("Underweight")
+elif bmi < 25:
+    print("Normal weight")
+elif bmi < 30:
+    print("Overweight")
+else:
+    print("Obese")</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">16. Floor division</span>
+          <span class="rank low">Quick</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Floor division</b> divides two numbers and rounds the result down to the nearest whole number (discards the remainder). Symbol: <code>//</code>.</p>
+          <pre><code class="language-python">print(7 // 2)    # 3
+print(-7 // 2)   # -4  (rounds toward negative infinity, not zero)</code></pre>
+        </div>
+      </div>
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">Past-paper program — Check if a number is prime</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Appeared as a standalone Group A question on a past paper. Simple and easy marks — memorize this pattern.</p>
+          <pre><code class="language-python">num = int(input("Enter a number: "))
+is_prime = True
+
+if num < 2:
+    is_prime = False
+else:
+    for i in range(2, int(num ** 0.5) + 1):
+        if num % i == 0:
+            is_prime = False
+            break
+
+print(f"{num} is {'a prime' if is_prime else 'not a prime'} number")</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ UNIT 2 ============ -->
+    <section class="unit" id="unit2">
+      <div class="unit-head"><span class="unit-tag">02</span><h2>Built-In Data Types</h2></div>
+      <p class="unit-meta">7 hrs · Numbers, sequences, sets, dicts, dates, collections module — heaviest unit, prioritize this</p>
+      <div class="unit-toolbar">
+        <button onclick="expandUnit('unit2',true)">Expand all</button>
+        <button onclick="expandUnit('unit2',false)">Collapse all</button>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">1. Built-in data types in Python</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <ul>
+            <li><b>Numeric:</b> int, float, complex, bool</li>
+            <li><b>Immutable sequences:</b> str, tuple, bytes</li>
+            <li><b>Mutable sequences:</b> list, bytearray</li>
+            <li><b>Set types:</b> set, frozenset</li>
+            <li><b>Mapping type:</b> dict</li>
+            <li><b>None type:</b> NoneType</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">2–3. Explicit type conversion + input() with conversion</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Explicit type conversion (type casting):</b> manually converting a value from one type to another using built-in functions.</p>
+          <pre><code class="language-python">int("5")        # 5      (str -> int)
+float(5)        # 5.0    (int -> float)
+str(5.0)        # "5.0"  (float -> str)
+list("abc")     # ['a','b','c']  (str -> list)
+tuple([1,2,3])  # (1,2,3) (list -> tuple)</code></pre>
+          <p><b>input():</b> gets keyboard input from the user, and it <b>always returns a string</b>. Yes, you can convert it at the time of input by wrapping the call:</p>
+          <pre><code class="language-python">age = int(input("Enter your age: "))
+price = float(input("Enter price: "))</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">4. Finding length with len()</span>
+          <span class="rank low">Quick</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>The built-in <code>len()</code> function returns the number of items in a string, list, tuple, set, or dict.</p>
+          <pre><code class="language-python">len("hello")       # 5
+len([1,2,3,4])     # 4
+len({1,2,3})       # 3</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">5–8. Mutable vs immutable sequences</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Mutable</b> means an object's content can be changed after creation, without creating a new object in memory. <b>Immutable</b> means once created, the object's value can never change — any "modification" actually creates a brand-new object.</p>
+          <p><b>Mutable sequences:</b> list, bytearray (and set, dict as mutable collections). <b>Immutable sequences:</b> string, tuple, bytes — these cannot be changed in place; note that a common exam phrasing calls string/tuple/bytes "immutable sequences," so double-check the wording on your paper.</p>
+          <pre><code class="language-python"># Mutable — list changes in place, same id()
+lst = [1, 2, 3]
+lst.append(4)          # [1, 2, 3, 4] — same object
+
+# Immutable — string "modification" makes a new object
+s = "hi"
+s = s + " there"       # a new string object is created</code></pre>
+          <p><b>Modifying mutable sequences:</b> yes — via index assignment (<code>lst[0]=99</code>), or methods like <code>append()</code>, <code>remove()</code>, <code>extend()</code>, <code>insert()</code>, <code>pop()</code>.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">9. bytes vs bytearray · tuple vs list · set vs dict</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <table>
+            <tr><th>Pair</th><th>Similarity</th><th>Difference</th></tr>
+            <tr><td>bytes / bytearray</td><td>Both hold sequences of byte values (0–255)</td><td>bytes is immutable; bytearray is mutable</td></tr>
+            <tr><td>tuple / list</td><td>Both are ordered, indexable sequences that can hold mixed types</td><td>tuple is immutable (fixed after creation); list is mutable</td></tr>
+            <tr><td>set / dict</td><td>Both are unordered collections of unique elements/keys, defined with <code>{}</code></td><td>set stores single unique values; dict stores unique keys each mapped to a value</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">Past-paper favorite — List, Set, Tuple: adding &amp; removing elements (all methods)</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>This exact prompt — "Explain list, set and tuple with their properties, explain methods for adding/removing elements" — has appeared as a full Group B (6-mark) question. Tuples have no add/remove methods since they're immutable; that's worth stating explicitly.</p>
+          <pre><code class="language-python"># LIST — mutable, ordered, allows duplicates
+lst = [1, 2, 3]
+lst.append(4)        # add single item at end        -> [1,2,3,4]
+lst.insert(1, 99)    # add item at specific index     -> [1,99,2,3,4]
+lst.extend([5, 6])   # add multiple items at end      -> [...,5,6]
+lst.remove(99)       # remove first matching value
+lst.pop()            # remove & return last item (or lst.pop(i) for index)
+lst.clear()          # remove everything
+
+# SET — mutable, unordered, no duplicates
+s = {1, 2, 3}
+s.add(4)             # add single item
+s.update([5, 6])     # add multiple items
+s.remove(2)          # remove item, error if missing
+s.discard(10)        # remove item, NO error if missing
+s.pop()              # removes an arbitrary item
+s.union({7, 8})            # combine two sets
+s.intersection({1, 5, 7})  # common elements
+s.difference({1})          # elements only in s
+
+# TUPLE — immutable, ordered, allows duplicates
+t = (1, 2, 3)
+# No add/remove methods exist — a tuple cannot be changed after creation.
+# To "modify" one, you must build a new tuple:
+t = t + (4,)          # (1, 2, 3, 4)</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">Past-paper program — Dictionary with name, roll, faculty (create, print, add, remove)</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Appeared as an OR-choice Group B question: "create a dictionary with name, roll and faculty as keys, show how to print a particular value, all values, all keys, add elements, and remove elements."</p>
+          <pre><code class="language-python">student = {"name": "Subin", "roll": 12, "faculty": "BDS"}
+
+print(student["name"])        # a particular value
+print(student.values())       # all values
+print(student.keys())         # all keys
+
+student["semester"] = 2       # add a new key-value pair
+del student["semester"]       # remove a key-value pair
+# alternative: student.pop("faculty")
+
+print(student)</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">10. int ÷ int result type</span>
+          <span class="rank low">Quick</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>In Python 3, dividing one integer by another with <code>/</code> always returns a <b>float</b> (true division), even if it divides evenly. Use <code>//</code> to get an integer (floor) result.</p>
+          <pre><code class="language-python">print(10 / 2)   # 5.0  -> float
+print(10 // 2)  # 5    -> int</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">11. type() vs isinstance()</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>type(obj)</code> returns the exact type of an object. <code>isinstance(obj, cls)</code> checks whether an object is an instance of a class <b>or any of its subclasses</b>, returning True/False.</p>
+          <p><b>Difference:</b> <code>type()</code> does an exact match only, so it fails for subclasses; <code>isinstance()</code> is preferred in real code because it correctly handles inheritance.</p>
+          <pre><code class="language-python">class Animal: pass
+class Dog(Animal): pass
+
+d = Dog()
+print(type(d) == Animal)      # False
+print(isinstance(d, Animal))  # True</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">12. Dictionary as a mapping type, key uniqueness</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>A dictionary is called a <b>mapping type</b> because it maps (associates) each key to a corresponding value, rather than storing values by position like a list.</p>
+          <p><b>Keys must be unique</b> because a key is used to look up its value directly — if duplicates existed, the lookup would be ambiguous (so assigning to an existing key simply overwrites it). <b>Values may repeat</b> because they carry no such lookup responsibility — many keys can legitimately map to the same value.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">13. + and * with strings</span>
+          <span class="rank low">Quick</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <pre><code class="language-python">print("Hi " + "there")   # "Hi there"  -> concatenation
+print("Hi" * 3)          # "HiHiHi"    -> repetition</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">14–15. datetime module and format directives</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <pre><code class="language-python">from datetime import datetime, date
+
+now = datetime.now()
+print(now.strftime("%Y-%m-%d %H:%M:%S"))   # 2026-07-04 14:30:05
+d = date(2026, 7, 4)
+print(d.strftime("%A, %B %d, %Y"))          # Saturday, July 04, 2026</code></pre>
+          <table>
+            <tr><th>Directive</th><th>Meaning</th></tr>
+            <tr><td>%Y / %y</td><td>Year (4-digit / 2-digit)</td></tr>
+            <tr><td>%m / %B</td><td>Month number / full month name</td></tr>
+            <tr><td>%d</td><td>Day of month</td></tr>
+            <tr><td>%H / %M / %S</td><td>Hour / minute / second</td></tr>
+            <tr><td>%A</td><td>Full weekday name</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">16–20. collections module: namedtuple, deque, Counter, defaultdict, ChainMap</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>collections</code> provides specialized container types beyond the built-ins.</p>
+          <pre><code class="language-python">from collections import namedtuple, deque, Counter, defaultdict, ChainMap
+
+# namedtuple — tuple with named fields, more readable than index access
+Point = namedtuple("Point", ["x", "y"])
+p = Point(2, 3)
+print(p.x, p.y)          # 2 3
+
+# deque — double-ended queue, fast append/pop from BOTH ends
+dq = deque([1, 2, 3])
+dq.appendleft(0)          # [0, 1, 2, 3]
+dq.pop()                  # removes from right -> [0, 1, 2]
+dq.rotate(1)               # rotates elements
+
+# Counter — dict subclass that counts hashable items
+c = Counter(["a", "b", "a", "c", "a"])
+print(c)                  # Counter({'a': 3, 'b': 1, 'c': 1})
+print(c.most_common(1))   # [('a', 3)]
+
+# defaultdict — supplies a default value for missing keys, avoids KeyError
+dd = defaultdict(int)
+dd["x"] += 1               # no KeyError even though "x" didn't exist
+
+# ChainMap — views multiple dicts as one, without merging them
+defaults = {"color": "blue"}
+overrides = {"size": "L"}
+combined = ChainMap(overrides, defaults)
+print(combined["color"])  # "blue" (falls through to defaults)</code></pre>
+          <p><b>Is Counter a subclass of dict?</b> Yes. Used on a list, it returns a dict-like object mapping each distinct element to its count.</p>
+          <p><b>Why defaultdict matters:</b> without it, accessing a missing key raises <code>KeyError</code>; defaultdict auto-creates a default value (via the factory you pass, e.g. <code>int</code>, <code>list</code>) so grouping/counting code stays short.</p>
+          <p><b>When ChainMap is needed:</b> when you want to search across several dictionaries in priority order (e.g. command-line args → environment variables → defaults) without physically merging them into one dict.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">21. Small value caching</span>
+          <span class="rank low">Quick</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Python pre-creates and reuses ("caches"/interns) small integers from <b>-5 to 256</b> and some short strings, so multiple variables assigned the same small value point to the exact same object in memory — an optimization that avoids repeatedly creating identical objects.</p>
+          <pre><code class="language-python">a = 100
+b = 100
+print(a is b)   # True  -> cached, same object
+
+x = 1000
+y = 1000
+print(x is y)   # False (usually) -> outside cached range, separate objects</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">22–25. Indexing, slicing, negative indexing, [::-1]</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Yes — indexing and slicing work on <b>every sequence type</b> (str, list, tuple, bytes, bytearray, range) because sequences maintain a defined order, so each element has a positional index. Sets and dicts are unordered/keyed, so they don't support index-based slicing.</p>
+          <p><b>Positive indexing</b> counts from 0 at the left; <b>negative indexing</b> counts from -1 at the right, letting you "backtrack" from the end without knowing the sequence's length.</p>
+          <p><b>Indexing vs slicing:</b> indexing (<code>seq[i]</code>) retrieves a single element; slicing (<code>seq[start:stop:step]</code>) retrieves a sub-sequence. <code>stop</code> is exclusive.</p>
+          <pre><code class="language-python">s = "python"
+print(s[0])        # 'p'      (indexing)
+print(s[-1])       # 'n'      (negative indexing)
+print(s[1:4])      # 'yth'    (slicing)
+print(s[::-1])     # 'nohtyp' (reverses the sequence)</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ UNIT 3 ============ -->
+    <section class="unit" id="unit3">
+      <div class="unit-head"><span class="unit-tag">03</span><h2>Conditionals and Iterations</h2></div>
+      <p class="unit-meta">5 hrs · if/elif/else, for/while, break/continue, walrus — a guaranteed Group B question</p>
+      <div class="unit-toolbar">
+        <button onclick="expandUnit('unit3',true)">Expand all</button>
+        <button onclick="expandUnit('unit3',false)">Collapse all</button>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">1–3. Conditional statements, if-else vs for/while-else, if-elif-else program</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Conditional statements (<code>if</code>, <code>elif</code>, <code>else</code>) let a program choose which block of code to execute based on whether a condition is True or False. Indentation is critical here too — it's the only way Python knows which statements belong inside which branch.</p>
+          <p><b>if-else vs for/while-else:</b> a plain <code>if-else</code> runs the else branch whenever the if-condition is False — it's a one-time decision. A loop's <code>else</code> clause runs only if the loop finishes all its iterations <b>without hitting a <code>break</code></b>; if the loop is broken early, the else is skipped.</p>
+          <pre><code class="language-python">num = int(input("Enter a number: "))
+if num > 0:
+    print("Positive")
+elif num < 0:
+    print("Negative")
+else:
+    print("Zero")</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">4. Ternary operator + greatest of three numbers</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>The <b>ternary (conditional) operator</b> writes a simple if-else as a single expression: <code>value_if_true if condition else value_if_false</code>. It's useful for short conditional assignments without a full if-block.</p>
+          <pre><code class="language-python">a, b, c = 12, 45, 30
+greatest = a if (a > b and a > c) else (b if b > c else c)
+print("Greatest:", greatest)</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">5. The pass keyword</span>
+          <span class="rank low">Quick</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>pass</code> is a null operation — it does nothing and is used as a placeholder where Python's syntax requires a statement but you have no code to write yet. Conditionals, loops, functions, and classes all require an indented body, so <code>pass</code> lets you stub them out without an error.</p>
+          <pre><code class="language-python">def todo_later():
+    pass   # will implement later
+
+if True:
+    pass   # placeholder</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">6. range() — three forms</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>range()</code> generates a sequence of numbers, most often used to control loop iteration counts.</p>
+          <table>
+            <tr><th>Form</th><th>Produces</th></tr>
+            <tr><td><code>range(n)</code></td><td>0, 1, 2, … n-1</td></tr>
+            <tr><td><code>range(a, b)</code></td><td>a, a+1, … b-1</td></tr>
+            <tr><td><code>range(a, b, s)</code></td><td>a, a+s, a+2s, … up to but excluding b</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">7–8. for vs while + binary conversion program</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>for loop:</b> iterates over a sequence (or a known range) — use it when the number of iterations is known in advance. <b>while loop:</b> repeats as long as a condition stays True — use it when the number of iterations isn't known upfront.</p>
+          <pre><code class="language-python">n = int(input("Enter a decimal number: "))
+binary = ""
+if n == 0:
+    binary = "0"
+while n > 0:
+    binary = str(n % 2) + binary
+    n = n // 2
+print("Binary:", binary)</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">9–10. break vs continue, simulating do-while</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>break</code> exits the loop immediately, skipping any remaining iterations. <code>continue</code> skips only the current iteration and moves on to the next one.</p>
+          <pre><code class="language-python">for i in range(1, 10):
+    if i == 5:
+        break        # stops the loop entirely at 5
+    if i % 2 == 0:
+        continue     # skips even numbers, keeps looping
+    print(i)         # prints 1, 3</code></pre>
+          <p>Python has <b>no built-in do-while</b> loop. Simulate it with <code>while True</code> plus a break condition, so the body always runs at least once:</p>
+          <pre><code class="language-python">while True:
+    ans = input("Continue? (y/n): ")
+    if ans == "n":
+        break</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">11–12. Walrus operator + student list program</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>The <b>walrus operator</b> <code>:=</code> assigns a value to a variable as part of a larger expression, so you can assign and test/use the value in one line instead of writing a separate assignment statement first — commonly used inside <code>while</code> loops and comprehensions.</p>
+          <pre><code class="language-python">students = []
+while (name := input("Enter student name (or 'stop'): ")) != "stop":
+    students.append(name)
+
+print("Students:", students)</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">Past-paper program — Check if a character is a vowel or consonant</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Asked as: "take input from user and check whether an alphabet is vowel or consonant" — appeared alongside an if/if-else flowchart explanation.</p>
+          <pre><code class="language-python">ch = input("Enter a single alphabet: ").lower()
+
+if ch in "aeiou":
+    print(ch, "is a vowel")
+elif ch.isalpha():
+    print(ch, "is a consonant")
+else:
+    print("Not an alphabet")</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">Past-paper program — Sum of digits of a number</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Paired with "explain continue and else clause after loops" on a past paper — practice both together.</p>
+          <pre><code class="language-python">num = int(input("Enter a number: "))
+n = num
+total = 0
+
+while n > 0:
+    total += n % 10
+    n = n // 10
+
+print(f"Sum of digits of {num} is {total}")</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">Past-paper program — Profit or loss percentage</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <pre><code class="language-python">cost_price = float(input("Enter cost price: "))
+selling_price = float(input("Enter selling price: "))
+
+if selling_price > cost_price:
+    profit = selling_price - cost_price
+    percentage = (profit / cost_price) * 100
+    print(f"Profit of {percentage:.2f}%")
+elif cost_price > selling_price:
+    loss = cost_price - selling_price
+    percentage = (loss / cost_price) * 100
+    print(f"Loss of {percentage:.2f}%")
+else:
+    print("No profit, no loss")</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">Past-paper program — Count even numbers in a list from 1 to 30</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Paired with "explain for and while loops" as an OR-choice question.</p>
+          <pre><code class="language-python">numbers = list(range(1, 31))
+count = 0
+
+for n in numbers:
+    if n % 2 == 0:
+        count += 1
+
+print("Count of even numbers:", count)</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ UNIT 4 ============ -->
+    <section class="unit" id="unit4">
+      <div class="unit-head"><span class="unit-tag">04</span><h2>Functions</h2></div>
+      <p class="unit-meta">4 hrs · Parameters, recursion, lambda, the random module</p>
+      <div class="unit-toolbar">
+        <button onclick="expandUnit('unit4',true)">Expand all</button>
+        <button onclick="expandUnit('unit4',false)">Collapse all</button>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">1–3. Importance of functions, built-in vs user-defined, parameters vs arguments</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Why functions matter:</b> they enable code reuse, break a program into modular readable pieces, make debugging/testing easier, and avoid repeating the same logic.</p>
+          <p><b>Built-in functions</b> ship with Python (e.g. <code>len()</code>, <code>print()</code>, <code>sum()</code>); <b>user-defined functions</b> are ones you write yourself with <code>def</code>.</p>
+          <p><b>Parameters vs arguments:</b> parameters are the placeholder variable names listed in a function's definition; arguments are the actual values you pass in when calling the function.</p>
+          <pre><code class="language-python">def greet(name):     # 'name' is the parameter
+    print("Hello", name)
+
+greet("Subin")        # "Subin" is the argument</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">4–5. Lambda without return, ways to pass parameters</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>A lambda has no <code>return</code> keyword because it doesn't need one — a lambda body is a single expression, and that expression's value is <b>implicitly returned</b> automatically.</p>
+          <pre><code class="language-python">square = lambda x: x * x
+print(square(5))   # 25 — no 'return' needed</code></pre>
+          <p><b>Ways to pass parameters:</b></p>
+          <ul>
+            <li><b>Positional</b> — matched by order: <code>f(1, 2)</code></li>
+            <li><b>Keyword</b> — matched by name: <code>f(a=1, b=2)</code></li>
+            <li><b>Default value</b> — used if caller omits it: <code>def f(a, b=10)</code></li>
+            <li><b>Variable-length</b> — <code>*args</code> (extra positional args as a tuple), <code>**kwargs</code> (extra keyword args as a dict)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">6. Returning values, calling built-ins inside return</span>
+          <span class="rank low">Quick</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>A function returns a single value with <code>return value</code>. Yes — you can call built-in functions directly inside the return statement.</p>
+          <pre><code class="language-python">def combined(lst):
+    return len(lst) + max(lst)
+
+print(combined([1, 2, 3]))   # 3 + 3 = 6</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">7–8. Iterative vs recursive + Fibonacci recursion program</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Iterative</b> functions repeat using loops (for/while); <b>recursive</b> functions call themselves to break a problem into smaller sub-problems until reaching a base case. Recursion is often cleaner for naturally recursive problems (tree traversal, factorial) but uses more memory (call stack).</p>
+          <pre><code class="language-python">def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+for i in range(8):
+    print(fibonacci(i), end=" ")   # 0 1 1 2 3 5 8 13</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">9. The random module</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <pre><code class="language-python">import random
+
+random.random()          # random float between 0.0 and 1.0
+random.seed(42)          # fixes the random sequence for reproducibility
+random.choice([1,2,3])   # picks one random element from a sequence
+random.randint(1, 6)     # random integer, inclusive of both ends (dice roll)
+random.randrange(0,10,2) # random int from a range with a step
+random.uniform(1.0, 5.0) # random float within a range</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">10. Program — GCD using recursion</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <pre><code class="language-python">def gcd(a, b):
+    if b == 0:
+        return a
+    return gcd(b, a % b)
+
+print("GCD:", gcd(48, 18))   # 6</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ UNIT 5 ============ -->
+    <section class="unit" id="unit5">
+      <div class="unit-head"><span class="unit-tag">05</span><h2>Comprehensions and Generators</h2></div>
+      <p class="unit-meta">3 hrs · map/zip/filter, comprehensions, generators — an exact past-paper question repeats here</p>
+      <div class="unit-toolbar">
+        <button onclick="expandUnit('unit5',true)">Expand all</button>
+        <button onclick="expandUnit('unit5',false)">Collapse all</button>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">1–3. map(), zip(), and the max-across-lists program</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>map(function, iterable)</code> applies a function to every item of an iterable and returns a map object (convert to list to view it).</p>
+          <p><code>zip(iter1, iter2, ...)</code> combines multiple iterables element-by-element into tuples, stopping at the shortest iterable.</p>
+          <pre><code class="language-python">a = [15, 19, 12, 24, 47]
+b = [23, 17, 10, 19, 32]
+c = [16, 28, 30, 25, 13]
+
+# largest number at each position across the lists
+result = list(map(lambda group: max(group), zip(a, b, c)))
+print(result)   # [23, 28, 30, 25, 47]</code></pre>
+          <p><i>Note: this exact question appeared in your Unit 5 assignment sheet with lists a–h; the pattern is identical, just zip() all the lists together and map max() over each tuple.</i></p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">4. filter() — extracting vowels from a string</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>filter(function, iterable)</code> keeps only the items for which the function returns True.</p>
+          <pre><code class="language-python">text = "Programming in Python"
+vowels = list(filter(lambda ch: ch.lower() in "aeiou", text))
+print(vowels)   # ['o', 'a', 'i', 'i', 'o', 'o']</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">5–6. List comprehension + nested list comprehension (pairing letters)</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>List comprehension</b> is concise syntax for building a new list: <code>[expression for item in iterable if condition]</code>.</p>
+          <pre><code class="language-python">students = ["Sushant", "Alina", "Bimal", "Sristi", "Ram"]
+has_s = [name for name in students if "s" in name.lower()]
+print(has_s)   # ['Sushant', 'Alina', 'Sristi']
+
+# Nested comprehension: pair letters of TUVXYZ without duplicates (i != j)
+letters = "TUVXYZ"
+pairs = [(a, b) for a in letters for b in letters if a != b]
+print(pairs)</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">7. Pythagorean triple using filter comprehension</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <pre><code class="language-python">triples = [(a, b, c)
+           for a in range(1, 25)
+           for b in range(a, 25)
+           for c in range(b, 25)
+           if a*a + b*b == c*c]
+print(triples)   # e.g. (3, 4, 5), (6, 8, 10), (5, 12, 13) ...</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">8. Dictionary comprehension with lambda</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Dict comprehension:</b> <code>{key_expr: value_expr for item in iterable}</code>. A lambda can be used inline in the value expression to transform values as the dict is built.</p>
+          <pre><code class="language-python">nums = [1, 2, 3, 4, 5]
+squares = {n: (lambda x: x**2)(n) for n in nums}
+print(squares)   # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">9–12. Generators, return vs yield, geometric progression + Fibonacci generator programs</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Generators</b> are functions that produce values one at a time, lazily, using <code>yield</code> instead of <code>return</code> — this saves memory since values aren't all stored in memory at once. Two types: <b>generator functions</b> (use <code>yield</code>) and <b>generator expressions</b> (comprehension syntax with parentheses, e.g. <code>(x*x for x in range(5))</code>).</p>
+          <p><b>return vs yield:</b> <code>return</code> exits the function and gives back one value, ending execution. <code>yield</code> pauses the function, sends back a value, and resumes exactly where it left off on the next call — this is what turns a normal function into a generator.</p>
+          <pre><code class="language-python"># Geometric progression up to 20 terms
+def geometric_progression(a, r, n=20):
+    term = a
+    for _ in range(n):
+        yield term
+        term *= r
+
+for val in geometric_progression(2, 3):
+    print(val, end=" ")
+
+print()
+
+# Fibonacci generator, stop once term reaches 10 terms
+def fibonacci_gen():
+    a, b, count = 0, 1, 0
+    while True:
+        if count == 10:
+            raise StopIteration
+        yield a
+        a, b = b, a + b
+        count += 1
+
+for num in fibonacci_gen():
+    print(num, end=" ")   # 0 1 1 2 3 5 8 13 21 34</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">13. Employee salary classifier — dict comprehension program</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>This exact program is in your Unit 5 sheet — practice typing it out once by hand.</p>
+          <pre><code class="language-python">def emp_type(salary):
+    if salary > 100000:
+        return "Principle Developer"
+    elif 60000 <= salary <= 100000:
+        return "Senior Developer"
+    elif 40000 <= salary < 60000:
+        return "Junior Developer"
+    elif 20000 <= salary < 40000:
+        return "Trainee"
+    else:
+        return "Intern"
+
+Employee = {}
+for i in range(20):
+    name = input(f"Enter name of employee {i+1}: ")
+    salary = float(input(f"Enter salary of {name}: "))
+    Employee[name] = salary
+
+# classify each employee
+classified = {name: emp_type(sal) for name, sal in Employee.items()}
+
+# total expense on "Principle Developer"s only
+total_principle = sum(sal for name, sal in Employee.items()
+                       if emp_type(sal) == "Principle Developer")
+
+print(classified)
+print("Total expense on Principle Developers:", total_principle)</code></pre>
+          <p><i>Note: the original question's elif chain (e.g. <code>100000&lt;=salary&gt;=60000</code>) has a logical typo — the corrected ranges above are what you should actually write in the exam.</i></p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Built from your Unit 1–5 assignment sheets and 3 past question papers (BDS151, School of Mathematical Sciences, TU). Check off each question as you can answer it without looking — aim for 100% coverage a day before the exam.
+    </footer>
+
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+<script>
+  hljs.highlightAll();
+
+  function toggle(headEl){
+    headEl.parentElement.classList.toggle('open');
+  }
+
+  function expandUnit(unitId, open){
+    document.querySelectorAll('#' + unitId + ' .qcard').forEach(c=>{
+      c.classList.toggle('open', open);
+    });
+  }
+
+  /* ---------- Mobile off-canvas menu ---------- */
+  const sidebarEl = document.querySelector('.sidebar');
+  const overlayEl = document.getElementById('sidebarOverlay');
+  const menuBtn = document.getElementById('menuToggle');
+
+  function closeDrawer(){
+    sidebarEl.classList.remove('open');
+    overlayEl.classList.remove('show');
+  }
+  menuBtn?.addEventListener('click', ()=>{
+    sidebarEl.classList.toggle('open');
+    overlayEl.classList.toggle('show');
+  });
+  overlayEl?.addEventListener('click', closeDrawer);
+  document.querySelectorAll('#tocNav a').forEach(a=>{
+    a.addEventListener('click', closeDrawer);
+  });
+
+  /* ---------- In-browser Python runner (Pyodide) ---------- */
+  let pyodidePromise = null;
+  function getPyodide(){
+    if(!pyodidePromise){
+      pyodidePromise = loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/" });
+    }
+    return pyodidePromise;
+  }
+
+  async function runCode(button, code, outputEl){
+    outputEl.classList.remove('hidden');
+    outputEl.textContent = 'Booting Python runtime… (only on first run)';
+    button.disabled = true;
+    const originalLabel = button.textContent;
+    button.textContent = '⏳ Running';
+    try{
+      const pyodide = await getPyodide();
+      let buffer = '';
+      pyodide.setStdout({ batched: (s)=>{ buffer += s + '\n'; } });
+      pyodide.setStderr({ batched: (s)=>{ buffer += s + '\n'; } });
+      pyodide.globals.set('_js_prompt', (p)=> window.prompt(p ?? '') ?? '');
+      await pyodide.runPythonAsync(
+        "import builtins\n" +
+        "def _custom_input(prompt=\"\"):\n" +
+        "    return _js_prompt(prompt)\n" +
+        "builtins.input = _custom_input\n"
+      );
+      const namespace = pyodide.globals.get('dict')();
+      try{
+        await pyodide.runPythonAsync(code, { globals: namespace });
+      } finally {
+        namespace.destroy();
+      }
+      outputEl.textContent = buffer.trim() ? buffer : '(ran successfully — no printed output)';
+    }catch(err){
+      outputEl.textContent = String(err);
+    }finally{
+      button.disabled = false;
+      button.textContent = originalLabel;
+    }
+  }
+
+  function setupRunners(){
+    document.querySelectorAll('pre code.language-python').forEach((codeEl)=>{
+      const pre = codeEl.parentElement;
+      if(pre.dataset.wrapped) return;
+      pre.dataset.wrapped = "1";
+
+      const originalCode = codeEl.textContent;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-runner';
+      pre.parentNode.insertBefore(wrapper, pre);
+
+      const bar = document.createElement('div');
+      bar.className = 'code-runner-bar';
+      const label = document.createElement('span');
+      label.textContent = 'python3 · editable';
+
+      const btnGroup = document.createElement('div');
+      btnGroup.className = 'code-runner-btns';
+      const resetBtn = document.createElement('button');
+      resetBtn.className = 'reset-btn';
+      resetBtn.textContent = '↺ Reset';
+      resetBtn.title = 'Restore the original code';
+      const runBtn = document.createElement('button');
+      runBtn.className = 'run-btn';
+      runBtn.textContent = '▶ Run';
+      btnGroup.appendChild(resetBtn);
+      btnGroup.appendChild(runBtn);
+
+      bar.appendChild(label);
+      bar.appendChild(btnGroup);
+      wrapper.appendChild(bar);
+
+      const textarea = document.createElement('textarea');
+      textarea.className = 'code-editor';
+      textarea.spellcheck = false;
+      textarea.autocapitalize = 'off';
+      textarea.autocomplete = 'off';
+      textarea.value = originalCode;
+      const lineCount = originalCode.split('\n').length;
+      textarea.rows = Math.min(Math.max(lineCount, 3), 24);
+      wrapper.appendChild(textarea);
+
+      // Tab key inserts spaces instead of moving focus
+      textarea.addEventListener('keydown', (e)=>{
+        if(e.key === 'Tab'){
+          e.preventDefault();
+          const start = textarea.selectionStart, end = textarea.selectionEnd;
+          textarea.value = textarea.value.slice(0, start) + '    ' + textarea.value.slice(end);
+          textarea.selectionStart = textarea.selectionEnd = start + 4;
+        }
+      });
+
+      pre.remove();
+
+      const out = document.createElement('div');
+      out.className = 'term-output hidden';
+      wrapper.appendChild(out);
+
+      resetBtn.addEventListener('click', ()=>{
+        textarea.value = originalCode;
+        out.classList.add('hidden');
+      });
+      runBtn.addEventListener('click', ()=> runCode(runBtn, textarea.value, out));
+    });
+  }
+  setupRunners();
+
+  const STORAGE_KEY = 'bds151_progress_v1';
+
+  function loadProgress(){
+    try{
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      const boxes = document.querySelectorAll('.qcard input[type=checkbox]');
+      boxes.forEach((box, i)=>{
+        if(saved[i]) box.checked = true;
+      });
+    }catch(e){}
+    updateCoverage();
+  }
+
+  function saveProgress(){
+    const boxes = document.querySelectorAll('.qcard input[type=checkbox]');
+    const state = {};
+    boxes.forEach((box, i)=>{ state[i] = box.checked; });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    updateCoverage();
+  }
+
+  function updateCoverage(){
+    const boxes = document.querySelectorAll('.qcard input[type=checkbox]');
+    const total = boxes.length;
+    const checked = Array.from(boxes).filter(b=>b.checked).length;
+    const pct = total ? Math.round((checked/total)*100) : 0;
+    document.getElementById('coveragePct').textContent = pct + '%';
+    document.getElementById('barFill').style.width = pct + '%';
+    document.getElementById('coverageCount').textContent = checked + ' of ' + total + ' questions reviewed';
+  }
+
+  // search filter
+  document.getElementById('searchBox').addEventListener('input', (e)=>{
+    const q = e.target.value.trim().toLowerCase();
+    document.querySelectorAll('.qcard').forEach(card=>{
+      const txt = card.textContent.toLowerCase();
+      card.classList.toggle('hidden', q.length > 0 && !txt.includes(q));
+      if(q.length > 0 && txt.includes(q)) card.classList.add('open');
+    });
+  });
+
+  // active nav highlight on scroll
+  const sections = document.querySelectorAll('section.unit, header.hero');
+  const navLinks = document.querySelectorAll('#tocNav a');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const id = entry.target.id;
+        navLinks.forEach(a=>{
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s=>io.observe(s));
+
+  loadProgress();
+</script>
+</body>
+</html>
