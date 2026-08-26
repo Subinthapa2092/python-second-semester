@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BDS151 Python Exam Prep (Units 1–5)</title>
+<title>BDS151 Python Exam Prep (Units 1–9)</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 <style>
   :root{
@@ -59,6 +59,7 @@
   nav.toc a:hover{background:#20273a; color:var(--ink);}
   nav.toc a.active{background:#20273a; color:var(--teal);}
   nav.toc .u-count{font-family:var(--mono); font-size:11px; color:var(--ink-dim);}
+  nav.toc .divider{margin:12px 0 6px; padding:0 10px; font-family:var(--mono); font-size:10.5px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.08em;}
 
   .main{flex:1; padding:40px 48px 120px; max-width:980px;}
   header.hero{margin-bottom:36px; border-bottom:1px solid var(--rule); padding-bottom:26px;}
@@ -232,7 +233,7 @@
   <aside class="sidebar">
     <div class="brand">BDS151 · Python Programming</div>
     <h1>Exam Prep Console</h1>
-    <p>Units 1–5 only · Tribhuvan University</p>
+    <p>Full syllabus · Units 1–9 · Tribhuvan University</p>
 
     <div class="coverage">
       <div class="coverage-top">
@@ -247,22 +248,28 @@
 
     <nav class="toc" id="tocNav">
       <a href="#overview">Overview</a>
-      <a href="#unit1">Unit 1 · Introduction <span class="u-count">16+1</span></a>
-      <a href="#unit2">Unit 2 · Data Types <span class="u-count">25+2</span></a>
-      <a href="#unit3">Unit 3 · Conditionals &amp; Loops <span class="u-count">12+4</span></a>
+      <div class="divider">Units 1–5</div>
+      <a href="#unit1">Unit 1 · Introduction <span class="u-count">17</span></a>
+      <a href="#unit2">Unit 2 · Data Types <span class="u-count">27</span></a>
+      <a href="#unit3">Unit 3 · Conditionals &amp; Loops <span class="u-count">16</span></a>
       <a href="#unit4">Unit 4 · Functions <span class="u-count">10</span></a>
       <a href="#unit5">Unit 5 · Comprehensions &amp; Generators <span class="u-count">13</span></a>
+      <div class="divider">Units 6–9</div>
+      <a href="#unit6">Unit 6 · OOP, Decorators, Iterators, Modules <span class="u-count">19</span></a>
+      <a href="#unit7">Unit 7 · Exceptions &amp; File Handling <span class="u-count">10</span></a>
+      <a href="#unit8">Unit 8 · Numpy &amp; Pandas <span class="u-count">19</span></a>
+      <a href="#unit9">Unit 9 · Matplotlib <span class="u-count">9</span></a>
     </nav>
   </aside>
 
   <main class="main">
 
     <header class="hero" id="overview">
-      <div class="eyebrow">First Assessment · 2082</div>
-      <h1>Everything for Units 1–5, in one place</h1>
-      <p>Every assignment question answered concisely, tagged by how often similar questions repeated across your three past papers, with runnable code for every "write a program" question. Tick a question off once you can answer it cold — the coverage meter tracks you.</p>
+      <div class="eyebrow">Comprehensive Exam · 2082</div>
+      <h1>Everything for Units 1–9, in one place</h1>
+      <p>Every assignment question answered concisely, tagged by how often similar questions repeat, with runnable code for every "write a program" question. Tick a question off once you can answer it cold — the coverage meter tracks you.</p>
       <div class="note-box">
-        <b>Scope note:</b> your past papers also covered OOP, file handling, NumPy, pandas, and matplotlib — but this exam is restricted to <b>Units 1–5 only</b> (Introduction → Comprehensions/Generators), so none of that appears here. Don't spend time on it.
+        <b>Updated scope:</b> this version now covers the <b>full syllabus</b> — Units 6–9 (OOP/Decorators/Iterators/Modules, Exceptions &amp; File Handling, Numpy &amp; Pandas, Matplotlib) have been added below Unit 5. Unit 6 alone carries the heaviest weight in the syllabus (14 of the 26 remaining hours) — prioritize it if you're short on time.
       </div>
 
       <div class="pattern-grid">
@@ -272,7 +279,7 @@
         </div>
         <div class="pattern-card">
           <h3>Group B — 5 × 6 = 30</h3>
-          <p>Theory + a program, often with an "OR" choice. List/Set/Tuple, Dictionary, loops+flowchart, and comprehensions are the recurring picks.</p>
+          <p>Theory + a program, often with an "OR" choice. List/Set/Tuple, Dictionary, loops+flowchart, comprehensions, OOP inheritance, and numpy/pandas programs are the recurring picks.</p>
         </div>
       </div>
     </header>
@@ -1328,8 +1335,1219 @@ print("Total expense on Principle Developers:", total_principle)</code></pre>
       </div>
     </section>
 
+    <!-- ============ UNIT 6 ============ -->
+    <section class="unit" id="unit6">
+      <div class="unit-head"><span class="unit-tag">06</span><h2>OOP, Decorators, Iterators, and Modules</h2></div>
+      <p class="unit-meta">14 hrs · Decorators, classes, inheritance, static/class methods, property, operator overloading, custom iterators, modules/packages — the heaviest unit in the syllabus, expect the most marks here</p>
+      <div class="unit-toolbar">
+        <button onclick="expandUnit('unit6',true)">Expand all</button>
+        <button onclick="expandUnit('unit6',false)">Collapse all</button>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">1. What is a decorator in Python?</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>A <b>decorator</b> is a function that takes another function as input and returns a modified version of it, adding new behavior <b>without changing the original function's code</b>. It's applied using the <code>@decorator_name</code> syntax placed just above the function definition.</p>
+          <pre><code class="language-python">def deco(func):
+    def wrapper(*args, **kwargs):
+        print("Before the function runs")
+        result = func(*args, **kwargs)
+        print("After the function runs")
+        return result
+    return wrapper
+
+@deco
+def greet(name):
+    print(f"Hello, {name}")
+
+greet("Subin")</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">2. Program — decorator to validate positive number, then find factorial</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Direct assignment-sheet question: "every time we call the factorial function, it checks for a positive integer inside the wrapper function."</p>
+          <pre><code class="language-python">def positive_check(func):
+    def wrapper(n):
+        if n < 0:
+            print("Error: factorial not defined for negative numbers")
+            return None
+        return func(n)
+    return wrapper
+
+@positive_check
+def factorial(n):
+    if n in (0, 1):
+        return 1
+    return n * factorial(n - 1)
+
+print(factorial(5))    # 120
+print(factorial(-3))   # Error message, returns None</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">3–4. Class/object creation, method invocation + importance of __init__</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Class:</b> defined with the <code>class</code> keyword — a blueprint describing attributes (data) and methods (behavior). <b>Object:</b> created by "calling" the class like a function — <code>obj = ClassName(args)</code>. <b>Method invocation:</b> called on the object using dot notation, <code>obj.method()</code>.</p>
+          <p><code>__init__</code> is the <b>initializer</b> (not technically a constructor — <code>__new__</code> is), automatically run right after an object is created. It sets up the object's starting attribute values so you don't have to assign them manually after creating the object.</p>
+          <pre><code class="language-python">class Student:
+    def __init__(self, name, roll):
+        self.name = name
+        self.roll = roll
+
+    def display(self):
+        print(f"{self.name} (Roll {self.roll})")
+
+s1 = Student("Subin", 12)   # object creation, __init__ runs automatically
+s1.display()                # method invocation</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">5. Why are objects mutable?</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Objects created from user-defined classes are mutable by default because their attributes are stored as key-value pairs in an internal dictionary (<code>__dict__</code>) that can be changed after creation — you can reassign <code>obj.attr = new_value</code> at any time, and it updates the same object in memory rather than creating a new one.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">6. Features of OOP through Python</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <ul>
+            <li><b>Encapsulation</b> — bundling data and methods together, restricting direct access via public/protected/private conventions</li>
+            <li><b>Inheritance</b> — a class can reuse and extend another class's attributes/methods</li>
+            <li><b>Polymorphism</b> — the same method name behaves differently depending on the object/class (e.g. method overriding, operator overloading)</li>
+            <li><b>Abstraction</b> — hiding implementation details, exposing only what's needed via methods</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">7–8. What is inheritance + list and describe all 5 types</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Inheritance</b> is an Is-A relationship where a derived (child) class automatically acquires the attributes and methods of a base (parent) class, enabling code reuse.</p>
+          <table>
+            <tr><th>Type</th><th>Structure</th></tr>
+            <tr><td>Single</td><td>One base → one derived class</td></tr>
+            <tr><td>Multiple</td><td><code>class Derived(Base1, Base2)</code> — one class inherits from two+ bases</td></tr>
+            <tr><td>Multilevel</td><td>A → B → C — a chain, grandparent → parent → child</td></tr>
+            <tr><td>Hierarchical</td><td>One base → many derived classes (tree shape)</td></tr>
+            <tr><td>Hybrid</td><td>A combination of the above (e.g. multiple + hierarchical together)</td></tr>
+          </table>
+          <pre><code class="language-python"># Multilevel example
+class Grandfather:
+    def __init__(self):
+        print("Grandpa - Hii")
+
+class Father(Grandfather):
+    def __init__(self):
+        print("Father - Hii")
+        super().__init__()
+
+class Mother(Father):
+    def __init__(self):
+        print("Mother - Hii")
+        super().__init__()
+
+Mother()</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">9. Demonstrate self in Python</span>
+          <span class="rank low">Quick</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>self</code> refers to the current instance of the class — it's how a method accesses that specific object's own attributes. It must be the first parameter of every instance method, though Python passes it automatically when you call <code>obj.method()</code> — you never pass it explicitly.</p>
+          <pre><code class="language-python">class Square:
+    side = 8
+    def area(self):
+        return self.side ** 2
+
+sq = Square()
+print(sq.area())          # 64
+print(Square.area(sq))    # 64 — equivalent, self passed explicitly here</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">10. Inheritance vs Composition</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Inheritance (Is-A):</b> a derived class IS a specialized version of the base class (e.g. a <code>Programmer</code> IS an <code>Employee</code>).</p>
+          <p><b>Composition (Has-A):</b> a class contains an instance of another class as an attribute — it HAS-A relationship, not an IS-A one (e.g. a <code>Student</code> HAS-A <code>Address</code>).</p>
+          <pre><code class="language-python">class Address:
+    def __init__(self, city):
+        self.city = city
+
+class Student:
+    def __init__(self, name, city):
+        self.name = name
+        self.address = Address(city)   # composition — Student HAS-A Address</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">11. Importance of the super() method</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>super()</code> returns a proxy object that lets a derived class call methods (usually <code>__init__</code>) from its base class, without hardcoding the base class name. This removes duplicate initialization code and means changing the base class later doesn't require touching the derived class.</p>
+          <pre><code class="language-python">class Book:
+    def __init__(self, title, pages):
+        self.title = title
+        self.pages = pages
+
+class Ebook(Book):
+    def __init__(self, title, pages, format_):
+        super().__init__(title, pages)   # reuses Book's init, no duplication
+        self.format_ = format_</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">12. Create: a class, a constructor, and the self variable</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <pre><code class="language-python">class Rectangle:
+    def __init__(self, length, width):   # __init__ acts as the constructor
+        self.length = length              # self refers to this instance
+        self.width = width
+
+    def area(self):
+        return self.length * self.width
+
+r = Rectangle(10, 4)
+print(r.area())   # 40</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">13. Importance of if __name__ == '__main__':</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Every Python file has a built-in <code>__name__</code> variable. When a file is run directly, <code>__name__</code> equals <code>"__main__"</code>. When that same file is <b>imported</b> into another file instead, <code>__name__</code> equals the module's own filename, not <code>"__main__"</code>. Wrapping code in this check ensures it only runs when the file is executed directly — not every time it gets imported elsewhere, which prevents unwanted side effects (like test code or print statements) firing on import.</p>
+          <pre><code class="language-python"># first.py
+def greet():
+    print("Hello from first.py")
+
+if __name__ == '__main__':
+    greet()   # only runs when first.py is executed directly
+
+# second.py
+import first   # greet() is NOT auto-called here, because __name__ != '__main__' in first.py</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">14. Importance of Hybrid Inheritance, with example</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Hybrid inheritance combines two or more inheritance types (e.g. hierarchical + multiple) in one design. It's important because real-world class relationships are rarely purely one shape — hybrid inheritance lets you model complex structures (e.g. a <code>Student</code> that inherits shared behavior from both a <code>Course</code> and a <code>Branch</code>, which both extend a common <code>University</code> base) while still reusing code.</p>
+          <pre><code class="language-python">class University:
+    def __init__(self): self.name = "TU"
+
+class Branch(University):
+    def __init__(self):
+        University.__init__(self)
+        self.brname = "School of Mathematics"
+
+class Course(University):
+    def __init__(self):
+        University.__init__(self)
+        self.coname = "Data Science"
+
+class Student(Course, Branch):     # hybrid: multiple + hierarchical combined
+    def __init__(self):
+        Course.__init__(self)
+        Branch.__init__(self)
+        self.stname = "Subin"</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">15. Difference between static and class methods</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <table>
+            <tr><th></th><th>@staticmethod</th><th>@classmethod</th></tr>
+            <tr><td>First parameter</td><td>None — no self, no cls</td><td><code>cls</code> (the class itself)</td></tr>
+            <tr><td>Can access instance data</td><td>No</td><td>No, but can access/modify class-level data via <code>cls</code></td></tr>
+            <tr><td>Typical use</td><td>Utility function logically grouped with the class</td><td>Alternate constructor, or logic that needs the class itself</td></tr>
+          </table>
+          <pre><code class="language-python">class Person:
+    count = 0
+    def __init__(self, name):
+        Person.count += 1
+        self.name = name
+
+    @staticmethod
+    def countPerson():
+        print("Number of persons ->", Person.count)
+
+    @classmethod
+    def from_birth_year(cls, name, birth_year):
+        from datetime import date
+        return cls(name)   # acts as an alternate constructor</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">16. Private attributes — what they are, and how to access them outside the class</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Python has three access levels by convention: <b>public</b> (no prefix — accessible everywhere), <b>protected</b> (single underscore <code>_x</code> — accessible in class + subclasses, by convention only), <b>private</b> (double underscore <code>__x</code> — name-mangled so it can't be accessed directly from outside).</p>
+          <p>A private attribute isn't truly hidden — Python performs <b>name mangling</b>, renaming <code>__private</code> to <code>_ClassName__private</code> internally. So you can still access it from outside using that mangled name (not recommended, but proves it's convention, not real enforcement).</p>
+          <pre><code class="language-python">class Attrs:
+    def __init__(self):
+        self.__private = "secret"
+
+obj = Attrs()
+# print(obj.__private)          # AttributeError
+print(obj._Attrs__private)      # "secret" — works via name mangling
+print(dir(obj))                 # shows the mangled name in the attribute list</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">17–18. What is the property decorator + full program with property, setter, deleter</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>@property</code> lets you call a method as if it were a plain attribute (no parentheses needed), which is useful for computed values (like a full name built from first+last name) that should stay read-friendly. <code>@x.setter</code> and <code>@x.deleter</code> extend that same property to support assignment (<code>obj.x = value</code>) and deletion (<code>del obj.x</code>).</p>
+          <pre><code class="language-python">class Employee:
+    def __init__(self, first, last):
+        self.firstname = first
+        self.lastname = last
+
+    @property
+    def fullname(self):
+        return f'{self.firstname} {self.lastname}'
+
+    @fullname.setter
+    def fullname(self, name):
+        self.firstname, self.lastname = name.split(' ')
+
+    @fullname.deleter
+    def fullname(self):
+        print("deleting name")
+        self.firstname = self.lastname = None
+
+emp = Employee("Harendra", "Bist")
+print(emp.fullname)          # Harendra Bist — called like an attribute
+emp.fullname = "Ramesh Yadav"  # uses the setter
+print(emp.fullname)          # Ramesh Yadav
+del emp.fullname             # uses the deleter
+print(emp.fullname)          # None None</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">19–20. What is operator overloading + program — add two complex number objects</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Operator overloading</b> gives a built-in operator (<code>+</code>, <code>-</code>, <code>==</code>, etc.) extra meaning when used on objects of a user-defined class, by implementing the matching dunder (double-underscore) method.</p>
+          <table>
+            <tr><th>Operator</th><th>Method</th></tr>
+            <tr><td>+</td><td><code>__add__</code></td></tr>
+            <tr><td>-</td><td><code>__sub__</code></td></tr>
+            <tr><td>*</td><td><code>__mul__</code></td></tr>
+            <tr><td>/</td><td><code>__truediv__</code></td></tr>
+            <tr><td>== / != / &lt; / &gt;</td><td><code>__eq__</code> / <code>__ne__</code> / <code>__lt__</code> / <code>__gt__</code></td></tr>
+            <tr><td>str(obj)</td><td><code>__str__</code></td></tr>
+          </table>
+          <pre><code class="language-python">class Complex:
+    def __init__(self, real=0, imaginary=0):
+        self.real = real
+        self.imaginary = imaginary
+
+    def __str__(self):
+        return f"({self.real}+{self.imaginary}i)"
+
+    def __add__(self, other):
+        return Complex(self.real + other.real, self.imaginary + other.imaginary)
+
+num1 = Complex(3, 4)
+num2 = Complex(5, 6)
+num3 = num1 + num2   # calls num1.__add__(num2) internally
+print(num3)           # (8+10i)</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">21. Program — Time class (hours/minutes/seconds), two constructors, overload + to add two times</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Direct assignment-sheet question: "one constructor should initialize this data to 0, and another should initialize it to fixed values. Display it in 11:59:59 format. Add two objects' time by overloading '+'."</p>
+          <pre><code class="language-python">class Time:
+    def __init__(self, hours=0, minutes=0, seconds=0):
+        self.hours = hours
+        self.minutes = minutes
+        self.seconds = seconds
+
+    def display(self):
+        print(f"{self.hours:02}:{self.minutes:02}:{self.seconds:02}")
+
+    def __add__(self, other):
+        total_seconds = (self.hours*3600 + self.minutes*60 + self.seconds +
+                          other.hours*3600 + other.minutes*60 + other.seconds)
+        h, rem = divmod(total_seconds, 3600)
+        m, s = divmod(rem, 60)
+        return Time(h, m, s)
+
+t0 = Time()                 # default constructor -> 00:00:00
+t1 = Time(11, 45, 30)       # fixed values
+t2 = Time(2, 30, 45)
+result = t1 + t2            # calls __add__
+result.display()            # 14:16:15</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">22–23. Iterator vs Iterable + program — custom iterator for primes between 20 and 200</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Iterable:</b> any object you can loop over — implements <code>__iter__()</code>, which returns an iterator (lists, tuples, strings, dicts are all iterables). <b>Iterator:</b> the object actually doing the stepping — implements both <code>__iter__()</code> (returns itself) and <code>__next__()</code> (returns the next value, raises <code>StopIteration</code> when exhausted). Every iterator is an iterable, but not every iterable is an iterator.</p>
+          <pre><code class="language-python">class PrimeIterator:
+    def __init__(self, start, end):
+        self.current = start
+        self.end = end
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        while self.current <= self.end:
+            n = self.current
+            self.current += 1
+            if n > 1 and all(n % i != 0 for i in range(2, int(n**0.5)+1)):
+                return n
+        raise StopIteration
+
+for prime in PrimeIterator(20, 200):
+    print(prime, end=" ")</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">24–25. Modules vs packages + importance of __init__.py</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Module:</b> a single <code>.py</code> file containing functions, classes, and variables that can be imported by filename (<code>import filename</code>). <b>Package:</b> a folder containing multiple related modules, plus an <code>__init__.py</code> file that marks it as a package.</p>
+          <p><b>Why <code>__init__.py</code> matters:</b> its presence is what tells Python a directory should be treated as an importable package rather than a plain folder. It runs automatically the first time the package (or anything inside it) is imported, and can be used to set up package-level initialization code or control what's exposed via <code>from package import *</code>.</p>
+          <pre><code class="language-python"># folder structure:
+# Games/__init__.py
+# Games/Characters/__init__.py
+# Games/Characters/players.py   -> def play(): ...
+# Games/Weapons/__init__.py
+# Games/Weapons/gun.py          -> def fire(): ...
+
+from Games.Characters.players import play
+from Games.Weapons.gun import fire
+
+play()
+fire()</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ UNIT 7 ============ -->
+    <section class="unit" id="unit7">
+      <div class="unit-head"><span class="unit-tag">07</span><h2>Exception and File Handling</h2></div>
+      <p class="unit-meta">4 hrs · try/except/finally, custom exceptions, file modes, CSV — short unit, high mark-per-minute value</p>
+      <div class="unit-toolbar">
+        <button onclick="expandUnit('unit7',true)">Expand all</button>
+        <button onclick="expandUnit('unit7',false)">Collapse all</button>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">1. Difference between "syntax error" and "exception"</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Syntax error:</b> Python's parser can't understand the code at all — wrong grammar (bad indentation, missing colon, typos in keywords). Detected before the program even starts running; the code never executes.</p>
+          <p><b>Exception:</b> a runtime error — the code is syntactically valid, but something goes wrong while it's executing (dividing by zero, accessing a missing index, converting invalid input). Exceptions can be anticipated and handled with <code>try/except</code>; syntax errors cannot.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">2–3. How exceptions are handled + importance of the finally block</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Exceptions are handled with <code>try / except / else / finally</code>: risky code goes in <code>try</code>; if an exception occurs, control jumps to the matching <code>except</code> block; <code>else</code> runs only if <b>no</b> exception occurred; <code>finally</code> <b>always</b> runs — whether an exception happened or not.</p>
+          <p><b>Why finally matters:</b> it's used for cleanup that must happen regardless of success or failure — closing a file, releasing a resource, or printing a closing message — so nothing is skipped even if the try block crashes.</p>
+          <pre><code class="language-python">try:
+    x = int(input("Enter a number: "))
+    print(10 / x)
+except ValueError:
+    print("Not an integer")
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+else:
+    print("No exception occurred")
+finally:
+    print("This always runs, cleanup here")</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">4. List any nine built-in exceptions, with descriptions</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <table>
+            <tr><th>Exception</th><th>Raised when…</th></tr>
+            <tr><td>ValueError</td><td>a function receives an argument of the right type but an inappropriate value (e.g. <code>int("abc")</code>)</td></tr>
+            <tr><td>TypeError</td><td>an operation is applied to an object of an inappropriate type (e.g. <code>"2" + 2</code>)</td></tr>
+            <tr><td>ZeroDivisionError</td><td>dividing a number by zero</td></tr>
+            <tr><td>IndexError</td><td>a sequence index is out of range</td></tr>
+            <tr><td>KeyError</td><td>a dictionary key doesn't exist</td></tr>
+            <tr><td>FileNotFoundError</td><td>trying to open a file that doesn't exist</td></tr>
+            <tr><td>AttributeError</td><td>an object doesn't have the attribute/method being accessed</td></tr>
+            <tr><td>NameError</td><td>using a variable/name that hasn't been defined</td></tr>
+            <tr><td>ImportError</td><td>an import statement can't find or load the module</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">5. Program — implement a user-defined / custom exception</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Custom exceptions are created by subclassing the built-in <code>Exception</code> class.</p>
+          <pre><code class="language-python">class AgeException(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(message)
+
+def check_age(age):
+    if age < 0:
+        raise AgeException("Age cannot be negative")
+    print("Age is valid")
+
+try:
+    check_age(-5)
+except AgeException as e:
+    print("Caught custom exception:", e)</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">6. Program — handle ZeroDivisionError and ValueError in a single program</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <pre><code class="language-python">def divide():
+    try:
+        a = int(input("Enter numerator: "))
+        b = int(input("Enter denominator: "))
+        print("Result:", a / b)
+    except ValueError:
+        print("Not an integer")
+    except ZeroDivisionError:
+        print("Cannot divide by zero")
+    finally:
+        print("Operation attempted")
+
+divide()</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">7. Difference between readline() and readlines()</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>readline()</code> reads and returns a <b>single line</b> at a time from a file (call it again to get the next line). <code>readlines()</code> reads the <b>entire file at once</b> and returns a list where each element is one line.</p>
+          <pre><code class="language-python">with open('data.txt') as f:
+    line1 = f.readline()   # just the first line
+
+with open('data.txt') as f:
+    all_lines = f.readlines()   # list of every line</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">8. Importance of file.seek()</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>seek(offset, whence)</code> moves the file pointer to a specific byte position, letting you re-read or overwrite from a chosen spot instead of always reading sequentially from where you last stopped. <code>whence=0</code> (default) is from the start, <code>1</code> is from the current position, <code>2</code> is from the end. Commonly paired with <code>tell()</code>, which returns the pointer's current position.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">9. Different modes to open a file</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <table>
+            <tr><th>Mode</th><th>Meaning</th></tr>
+            <tr><td>r</td><td>Read only (default). Errors if the file doesn't exist.</td></tr>
+            <tr><td>w</td><td>Write only. Creates the file if missing; <b>overwrites</b> if it exists.</td></tr>
+            <tr><td>a</td><td>Append. Creates if missing; writes are added to the end if it exists.</td></tr>
+            <tr><td>r+</td><td>Read and write, file must already exist.</td></tr>
+            <tr><td>rb / wb / ab</td><td>Same as above, but binary mode instead of text.</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">10. Different file-handling attributes</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <ul>
+            <li><code>file.closed</code> — True if the file is closed, False if open</li>
+            <li><code>file.mode</code> — the mode the file was opened in (e.g. 'r', 'w')</li>
+            <li><code>file.name</code> — the filename the file object refers to</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">11. Program — write the content of one CSV file to another CSV file</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <pre><code class="language-python">import csv
+
+with open('source.csv', 'r') as src, open('destination.csv', 'w', newline='') as dst:
+    reader = csv.reader(src)
+    writer = csv.writer(dst)
+    for row in reader:
+        writer.writerow(row)
+
+print("Contents copied successfully")</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ UNIT 8 ============ -->
+    <section class="unit" id="unit8">
+      <div class="unit-head"><span class="unit-tag">08</span><h2>Basic Data Processing with Numpy &amp; Pandas</h2></div>
+      <p class="unit-meta">6 hrs · Array creation, attributes, slicing, sorting/searching, stats + pandas Series/DataFrames, merging, CSV</p>
+      <div class="unit-toolbar">
+        <button onclick="expandUnit('unit8',true)">Expand all</button>
+        <button onclick="expandUnit('unit8',false)">Collapse all</button>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">1. Why is Numpy important in Python?</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Numpy provides the <code>ndarray</code> object plus vectorized mathematical operations that run much faster than pure-Python loops, because operations are executed in optimized C code under the hood rather than element-by-element in the interpreter. It underpins nearly the entire Python data science stack (pandas, scikit-learn, etc.), and adds capabilities like linear algebra, Fourier transforms, and random number generation.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">2. What is an ndarray? How is it created?</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>ndarray</code> (n-dimensional array) is Numpy's core data structure, representing a grid of values (all the same type, normally) of any number of dimensions. Created most simply with <code>np.array()</code>.</p>
+          <pre><code class="language-python">import numpy as np
+arr = np.array([1, 2, 3, 4])
+print(type(arr))    # &lt;class 'numpy.ndarray'&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">3. Can we multiply two matrices using Numpy? If yes, how?</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Yes — two ways. <code>*</code> does element-wise multiplication (shapes must match/broadcast). Actual matrix multiplication uses <code>np.dot()</code>, <code>np.matmul()</code>, or the <code>@</code> operator.</p>
+          <pre><code class="language-python">import numpy as np
+a = np.array([[1, 2], [3, 4]])
+b = np.array([[5, 6], [7, 8]])
+
+print(a * b)      # element-wise
+print(np.dot(a, b))   # true matrix multiplication
+print(a @ b)          # same as np.dot for 2D arrays</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">4. Ways arrays can be created using Numpy (list all with examples)</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <pre><code class="language-python">import numpy as np
+
+np.array([1, 2, 3])              # from a Python list
+np.zeros((2, 2))                 # matrix of zeros
+np.ones((3, 3))                  # matrix of ones
+np.eye(4)                        # identity matrix (1s on diagonal)
+np.arange(0, 10, 2)              # evenly spaced by step size
+np.linspace(0, 1, 5)             # evenly spaced by count of items
+np.logspace(1, 3, 3, base=10)    # evenly spaced on a log scale
+np.random.random((2, 2))         # random floats [0.0, 1.0)
+np.random.randint(1, 10, (2, 2)) # random integers in a range</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">5–6. Numpy data types + converting between them</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Numpy represents types with single characters: <code>i</code> integer, <code>b</code> boolean, <code>u</code> unsigned int, <code>f</code> float, <code>c</code> complex, <code>m</code> timedelta, <code>M</code> datetime, <code>O</code> object, <code>S</code> string, <code>U</code> unicode.</p>
+          <p><b>Conversion:</b> the <code>.astype()</code> method creates a <i>copy</i> of the array cast to a new dtype.</p>
+          <pre><code class="language-python">import numpy as np
+a = np.array([1.1, 2.1, 3.1])
+na = a.astype('i')     # or a.astype(int)
+print(na, na.dtype)    # [1 2 3] int32</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">7–8. Array attributes + difference between shape and reshape</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <table>
+            <tr><th>Attribute</th><th>Returns</th></tr>
+            <tr><td>.ndim</td><td>number of dimensions</td></tr>
+            <tr><td>.size</td><td>total number of elements</td></tr>
+            <tr><td>.shape</td><td>a tuple giving the size along each dimension</td></tr>
+            <tr><td>.itemsize</td><td>bytes used per element</td></tr>
+            <tr><td>.nbytes</td><td>total bytes used by the whole array</td></tr>
+            <tr><td>.T</td><td>the transpose of the array</td></tr>
+          </table>
+          <p><b>shape vs reshape:</b> <code>.shape</code> is an <i>attribute</i> — it reports the array's current dimensions and can also be reassigned in-place. <code>.reshape()</code> is a <i>method</i> that returns a new view of the same data arranged into different dimensions, without changing the underlying data or its total element count.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">9–10. Slicing in Numpy + difference between array copy and view</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Slicing</b> extracts a sub-array using <code>[start:stop:step]</code> per dimension, separated by commas for multi-dimensional arrays: <code>arr[0:2, 1:4]</code>.</p>
+          <p><b>Copy vs view:</b> <code>.copy()</code> creates a fully independent array — changes to one do <b>not</b> affect the other. <code>.view()</code> creates a new array object that <b>shares the same underlying data</b> — changing one changes the other too.</p>
+          <pre><code class="language-python">import numpy as np
+arr = np.array([1, 2, 3, 4, 5])
+c = arr.copy(); arr[0] = 99
+print(arr, c)     # [99 2 3 4 5] [1 2 3 4 5] -> copy unaffected
+
+v = arr.view(); arr[0] = 55
+print(arr, v)     # [55 2 3 4 5] [55 2 3 4 5] -> view reflects the change</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">11–13. numpy.arange() vs linspace() vs logspace() and their parameters</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <table>
+            <tr><th>Function</th><th>Signature</th><th>You specify</th></tr>
+            <tr><td>arange</td><td>(start, stop, step)</td><td>the step size — count of items is derived</td></tr>
+            <tr><td>linspace</td><td>(start, stop, num, endpoint)</td><td>the count of items — step size is derived; includes stop by default</td></tr>
+            <tr><td>logspace</td><td>(start, stop, num, base)</td><td>same as linspace, but values are spaced evenly on a log scale (base^start to base^stop)</td></tr>
+          </table>
+          <pre><code class="language-python">import numpy as np
+print(np.arange(0, 10, 2))          # [0 2 4 6 8]
+print(np.linspace(0, 10, 5))        # [0.  2.5 5.  7.5 10.]
+print(np.logspace(1, 3, 3, base=10))  # [10. 100. 1000.]</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">14. What is array broadcasting in Numpy?</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Broadcasting</b> is Numpy's ability to perform arithmetic between arrays of <i>different but compatible</i> shapes by automatically "stretching" the smaller array across the larger one, without actually copying data. Shapes are compatible when, comparing from the trailing dimension, each pair of dimensions is either equal or one of them is 1. Incompatible shapes raise a <code>ValueError</code>.</p>
+          <pre><code class="language-python">import numpy as np
+a = np.array([[1,2,3,4],[2,4,6,8]])   # shape (2,4)
+b = np.array([10,20,30,40])            # shape (4,) -> broadcast across rows
+print(a * b)</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">15. Why is numpy.nditer() important?</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Iterating a multi-dimensional array with plain nested <code>for</code> loops requires one loop per dimension — painful for high-dimensional arrays. <code>np.nditer()</code> is a single iterator that flattens through every element of an array of <i>any</i> dimensionality in one loop, keeping the code short and dimension-agnostic.</p>
+          <pre><code class="language-python">import numpy as np
+arr = np.array([[[1,2],[3,4]],[[5,6],[7,8]]])
+for x in np.nditer(arr):
+    print(x, end=" ")   # 1 2 3 4 5 6 7 8 — one loop, any dimension</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">16–17. Program — sort a 3D array with quicksort, mergesort, and heapsort + importance of the order attribute</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Direct assignment-sheet question: "implement all three sorting algorithms in a single program that can sort the 3D array."</p>
+          <pre><code class="language-python">import numpy as np
+arr = np.array([[[12, 6], [10, 11]], [[16, 14], [3, 9]]])
+
+print("quicksort:\n", np.sort(arr, kind="quicksort"))
+print("mergesort:\n", np.sort(arr, kind="mergesort"))
+print("heapsort:\n", np.sort(arr, kind="heapsort"))</code></pre>
+          <p><b>order attribute:</b> only relevant when the array has named fields (a structured array) — <code>order='fieldname'</code> tells <code>np.sort()</code> to sort rows based on that specific field rather than the whole row, similar to sorting a table by one column.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">18–21. argsort(), lexsort(), nonzero(), and where() — why each is important</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <table>
+            <tr><th>Function</th><th>Returns</th><th>Why it matters</th></tr>
+            <tr><td>np.argsort(a)</td><td>indices that would sort the array</td><td>lets you sort one array using the sort order of another (e.g. sort names by their scores)</td></tr>
+            <tr><td>np.lexsort((a, b))</td><td>indices sorting by multiple keys</td><td>sort by a primary key, breaking ties with a secondary key — like SQL's ORDER BY a, b</td></tr>
+            <tr><td>np.nonzero(a)</td><td>indices of non-zero elements</td><td>quickly locate meaningful (non-zero) entries in sparse data</td></tr>
+            <tr><td>np.where(cond)</td><td>indices where a condition is True</td><td>search/filter an array by condition without writing a manual loop</td></tr>
+          </table>
+          <pre><code class="language-python">import numpy as np
+a = np.array([90, 29, 89, 12])
+print(np.argsort(a))          # [3 1 2 0]
+print(np.where(a > 30))       # (array([0, 2]),)</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">22–23. Statistical functions in Numpy + importance of numpy.ptp()</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Order statistics:</b> <code>amin</code>, <code>amax</code>. <b>Averages/variance:</b> <code>median</code>, <code>average</code> (supports weights), <code>mean</code>, <code>std</code>, <code>var</code> — all accept an <code>axis</code> parameter (0=columns, 1=rows).</p>
+          <p><b>ptp()</b> ("peak to peak") returns <code>max - min</code> along an axis in one call — a quick way to see a dataset's range/spread without computing min and max separately.</p>
+          <pre><code class="language-python">import numpy as np
+a = np.array([[3, 7, 5], [8, 4, 3]])
+print(np.mean(a), np.std(a), np.var(a))
+print(np.ptp(a))          # 5 (8-3)
+print(np.ptp(a, axis=1))  # range per row</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">24. What is Series() in pandas?</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>A <code>pd.Series</code> is a <b>one-dimensional labeled array</b> that can hold any data type. Every element has an associated index label (0,1,2… by default, or custom labels). Unlike a DataFrame, a Series holds only a single column of data.</p>
+          <pre><code class="language-python">import pandas as pd
+s = pd.Series([10, 20, 30], index=['a', 'b', 'c'])
+print(s['b'])   # 20</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">25. The head() and tail() functions in pandas</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>df.head(n)</code> returns the first <code>n</code> rows (default 5). <code>df.tail(n)</code> returns the last <code>n</code> rows. Used to quickly preview a large DataFrame without printing everything.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">26. Program — demonstrate the attributes of a DataFrame</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <pre><code class="language-python">import pandas as pd
+data = {'Name': ['Ram', 'Shyam'], 'Marks': [78, 85]}
+df = pd.DataFrame(data)
+
+print(df.index)     # row labels
+print(df.columns)   # column labels
+print(df.dtypes)    # data type per column
+print(df.size)      # total number of cells
+print(df.shape)     # (rows, columns)
+print(df.ndim)       # number of dimensions
+print(df.empty)      # False
+print(df.T)          # transpose
+print(df.values)     # underlying numpy array</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">27–28. Methods to detect missing data + subsetting vs slicing</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Detecting missing data:</b> <code>df.isnull()</code> / <code>df.notnull()</code> return True/False per cell; <code>df.fillna(value)</code> fills missing cells; <code>df.dropna()</code> removes rows/columns containing NaN.</p>
+          <p><b>Subsetting vs slicing:</b> <b>slicing</b> selects a range of rows/columns by position or label (<code>df.iloc[0:3]</code>, <code>df.loc['a':'c']</code>) — it's about a contiguous <i>range</i>. <b>Subsetting</b> selects specific columns and/or rows matching a condition (<code>df[["Name"]]</code>, <code>df[df["Age"]>=18]</code>) — it's about picking out a <i>relevant subset</i>, which need not be contiguous.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">29. Program — join or merge two tables that share a common ID column</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Guaranteed-style question — know all four <code>how=</code> values, not just the syntax.</p>
+          <pre><code class="language-python">import pandas as pd
+students = pd.DataFrame({'Name': ['Ram','Shyam'], 'College_id': [121, 123]})
+colleges = pd.DataFrame({'College_id': [121, 123], 'College_name': ['Math College', 'TU']})
+
+print(pd.merge(students, colleges, on="College_id", how="left"))   # keep all of 'students'
+print(pd.merge(students, colleges, on="College_id", how="right"))  # keep all of 'colleges'
+print(pd.merge(students, colleges, on="College_id", how="inner"))  # only matching IDs
+print(pd.merge(students, colleges, on="College_id", how="outer"))  # all IDs from both, NaN where missing</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">30. How is pandas helpful in reading CSV files?</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>pd.read_csv('file.csv')</code> loads a CSV directly into a structured DataFrame in one line, automatically inferring column names/types, handling headers, and giving immediate access to all DataFrame methods (filtering, aggregation, merging) — far less manual work than parsing rows with the raw <code>csv</code> module.</p>
+          <pre><code class="language-python">import pandas as pd
+df = pd.read_csv("employee.csv")
+print(df.head())</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ UNIT 9 ============ -->
+    <section class="unit" id="unit9">
+      <div class="unit-head"><span class="unit-tag">09</span><h2>Data Visualization with Matplotlib</h2></div>
+      <p class="unit-meta">2 hrs · Shortest unit but almost always has at least one guaranteed program question</p>
+      <div class="unit-toolbar">
+        <button onclick="expandUnit('unit9',true)">Expand all</button>
+        <button onclick="expandUnit('unit9',false)">Collapse all</button>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">1. What are Matplotlib and pyplot?</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><b>Matplotlib</b> is a Python library for creating static, animated, and interactive visualizations, built on top of Numpy arrays. <code>matplotlib.pyplot</code> is its most commonly used module — a collection of functions (<code>plot()</code>, <code>bar()</code>, <code>show()</code>, etc.) that make it behave similarly to MATLAB's plotting interface.</p>
+          <pre><code class="language-python">import matplotlib.pyplot as plt
+plt.plot([1, 2, 3, 4])
+plt.ylabel("Numbers")
+plt.show()</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">2–3. Importance of the marker attribute + how to change marker size</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>marker=</code> emphasizes each individual data point on a line plot with a symbol (<code>'o'</code> circle, <code>'*'</code> star, <code>'s'</code> square, etc.) — useful when the exact position of each data point matters, not just the trend line.</p>
+          <p><b>Changing marker size:</b> use <code>markersize</code> or the shorthand <code>ms</code>.</p>
+          <pre><code class="language-python">import matplotlib.pyplot as plt
+plt.plot([3, 8, 1, 10], marker='o', ms=20, mec='r', mfc='r')
+plt.show()</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">4. Is it possible to draw multiple lines in pyplot?</span>
+          <span class="rank low">Quick</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Yes — either call <code>plt.plot()</code> multiple times before <code>plt.show()</code>, or pass multiple x/y pairs to a single call: <code>plt.plot(x1, y1, x2, y2)</code>. Each line can have its own color/marker/style set separately.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">5. Program — label both axes for share prices of 10 companies over the last 10 days</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+days = np.arange(1, 11)
+for company in range(1, 11):
+    prices = np.random.randint(100, 500, size=10)
+    plt.plot(days, prices, label=f"Company {company}")
+
+plt.xlabel("Day")
+plt.ylabel("Share Price")
+plt.title("10-Day Share Prices of 10 Companies")
+plt.legend()
+plt.show()</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">6. How to use multiple plots in Matplotlib</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>plt.subplot(rows, cols, index)</code> divides the figure into a grid and selects which cell subsequent plotting commands draw into. <code>index</code> starts at 1 (top-left) and increases left-to-right, top-to-bottom.</p>
+          <pre><code class="language-python">import matplotlib.pyplot as plt
+plt.subplot(1, 2, 1)
+plt.plot([0,1,2,3], [3,8,1,10])
+plt.subplot(1, 2, 2)
+plt.plot([0,1,2,3], [10,20,30,40])
+plt.show()</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">7. Difference between plot() and scatter()</span>
+          <span class="rank med">Common</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>plt.plot()</code> connects data points with a line by default — good for showing trends/continuity. <code>plt.scatter()</code> draws each point independently with no connecting line — better for showing the relationship/distribution between two variables without implying sequence.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">8. Difference between bar() and hist()</span>
+          <span class="rank high">Guaranteed</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p><code>plt.bar(x, y)</code> plots pre-aggregated categorical data you already supply — you give it the categories and their exact heights. <code>plt.hist(data)</code> takes <b>raw, ungrouped</b> data and computes the frequency distribution itself by binning values into ranges — you never supply the bar heights directly.</p>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">9. Program — implement all attributes of the pie() function</span>
+          <span class="rank high">Repeats on papers</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+y = np.array([35, 25, 25, 15])
+mylabels = ["Nepali", "English", "Maths", "Science"]
+myexplode = [0.1, 0, 0, 0]
+
+plt.pie(y, labels=mylabels, startangle=90, explode=myexplode, shadow=True)
+plt.legend(title="Subjects")
+plt.show()</code></pre>
+        </div>
+      </div>
+
+      <div class="qcard" data-q>
+        <div class="qcard-head" onclick="toggle(this)">
+          <input type="checkbox" onclick="event.stopPropagation(); saveProgress()">
+          <span class="qtext">10. Program to display/visualize a given figure (multi-panel practice)</span>
+          <span class="rank low">Quick</span>
+          <span class="caret">▸</span>
+        </div>
+        <div class="qcard-body">
+          <p>Past papers sometimes show a target figure and ask you to reproduce it — usually a <code>subplot()</code> grid combining different chart types. Practice building a 2×2 grid mixing plot types, since that's the most common shape for this question:</p>
+          <pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.arange(1, 6)
+plt.subplot(2, 2, 1); plt.plot(x, x)
+plt.subplot(2, 2, 2); plt.bar(x, x*2)
+plt.subplot(2, 2, 3); plt.scatter(x, x**2)
+plt.subplot(2, 2, 4); plt.pie([10,20,30,40])
+plt.tight_layout()
+plt.show()</code></pre>
+        </div>
+      </div>
+    </section>
+
     <footer>
-      Built from your Unit 1–5 assignment sheets and 3 past question papers (BDS151, School of Mathematical Sciences, TU). Check off each question as you can answer it without looking — aim for 100% coverage a day before the exam.
+      Built from your Unit 1–9 assignment sheets, the full syllabus PDF, and 3 past question papers (BDS151, School of Mathematical Sciences, TU). Check off each question as you can answer it without looking — aim for 100% coverage a day before the exam.
     </footer>
 
   </main>
@@ -1385,6 +2603,13 @@ print("Total expense on Principle Developers:", total_principle)</code></pre>
     button.textContent = '⏳ Running';
     try{
       const pyodide = await getPyodide();
+      // Auto-detect and load packages like numpy/pandas/matplotlib referenced by imports
+      try{
+        outputEl.textContent = 'Loading required packages (numpy/pandas/etc if used)…';
+        await pyodide.loadPackagesFromImports(code);
+      }catch(pkgErr){
+        // non-fatal — fall through and let the run itself surface any real import error
+      }
       let buffer = '';
       pyodide.setStdout({ batched: (s)=>{ buffer += s + '\n'; } });
       pyodide.setStderr({ batched: (s)=>{ buffer += s + '\n'; } });
@@ -1401,7 +2626,7 @@ print("Total expense on Principle Developers:", total_principle)</code></pre>
       } finally {
         namespace.destroy();
       }
-      outputEl.textContent = buffer.trim() ? buffer : '(ran successfully — no printed output)';
+      outputEl.textContent = buffer.trim() ? buffer : '(ran successfully — no printed output; note: plt.show() has no visible canvas here, but the code itself will run)';
     }catch(err){
       outputEl.textContent = String(err);
     }finally{
